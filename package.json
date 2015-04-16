@@ -1,0 +1,26 @@
+{
+  "name": "ractive-datatable",
+  "version": "0.0.0",
+  "description": "Interactive datatable for ractivejs",
+  "main": "datatable.js",
+  "scripts": {
+    "test": ""
+  },
+  "repository": {
+    "type": "git",
+    "url": "http://github.com/jondum/ractive-datatable"
+  },
+  "keywords": [
+    "ractivejs",
+    "ractive",
+    "component",
+    "datatable",
+    "ractive-datatable"
+  ],
+  "author": "Jonathan Dumaine",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jondum/ractive-datatable/issues"
+  },
+  "homepage": "https://github.com/jondum/ractive-datatable"
+}

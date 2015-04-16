@@ -1,0 +1,58 @@
+.ractive-datatable
+
+    table
+        display block
+        max-width 100%
+        overflow scroll
+
+    tbody
+        border 0px solid fade-out(#000, 0.75)
+        border-bottom-width 1px
+        border-top-width 1px
+
+    th
+        padding 0.5em 1em
+        font-size 1.2em
+        text-align left
+
+    td
+        text-align left
+        padding 0.5em 1em
+        white-space nowrap
+
+    tr
+        background #fff
+        &:nth-child(even)
+            background #fafafa
+
+        & + tr
+            border-top 1px solid #ddd
+        &:hover td
+            background fade-out(#000, 0.95)
+
+    > div
+        margin-top 5px
+
+    .pagination
+        float right
+        user-select none
+        -webkit-user-select none
+        -moz-user-select none
+        -ms-user-select none
+
+        .disabled
+            opacity 0.5
+
+    .pages
+        a
+            display inline-block
+            width 2em
+            text-align center
+
+        a.active
+            font-weight bold
+            text-decoration underline
+
+
+
+

@@ -1,0 +1,67 @@
+
+<div class='ractive-datatable'>
+    {{#if data}}
+    Page: {{page}}
+    <br/>
+    Perpage: {{perpage}}
+    <br/>
+    onFirstPage: {{onFirstPage}}
+    <br/>
+    onLastPage: {{onLastPage}}
+    <table>
+        <thead>
+            {{#_columns}}
+                {{#if can('display', this) }}
+                    <th>{{.}}</th>
+                {{/if}}
+            {{/}}
+        </thead>
+        <tbody>
+            {{#rows:i}}
+            <tr>
+                {{#_columns}}
+                    {{#if can('display', this) }}
+                    <td on-dblclick='set("editing", i + this)'>
+                        {{#if editable && can('edit', this) && editing == i+this}}
+                            <input value="{{rows[i][this]}}" on-blur-keyup='fieldedited()' twoway='false'>
+                        {{else}}
+                            {{rows[i][this]}}
+                        {{/if}}
+                    </td>
+                    {{/if}}
+                {{/}}
+            </tr>
+            {{/}}
+        </tbody>
+    </table>
+    <div>
+        Displaying {{current}} of {{total}}
+        {{#if pages}}
+        <span class='pagination'>
+
+            {{#if onFirstPage}}
+                <span class='disabled'>Previous</span>
+            {{else}}
+                <a on-click='previousPage()'>Previous</a>
+            {{/if}}
+
+            <span class='pages'>
+                {{#pages}}
+                <a on-click='gotoPage(this)' class='{{page == this ? "active" : ""}}'>{{.}}</a>
+                {{/}}
+            </span>
+
+            {{#if onLastPage}}
+                <span class='disabled'>Next</span>
+            {{else}}
+                <a on-click='nextPage()'>Next</a>
+            {{/if}}
+
+        </span>
+        {{/if}}
+    </div>
+    {{else}}
+        <div class='no-data'>No data</div>
+    {{/if}}
+</div>
+
