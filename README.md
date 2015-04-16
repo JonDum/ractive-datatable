@@ -44,7 +44,7 @@ Requires some sort of CommonJS module system (Webpack, Browserify) until someone
 ##### Properties
 `data`: Array of Objects where each key is a column
 
-`columns`: Array specifying which columns to display and order (any keys missing in this array will not be shown)
+`columns`: Array specifying which columns to display and order (any keys missing in this array will not be shown). If left `undefined`, the datatable will extract columns from the first item in the data array.
 
 `config`: Object to configure individual columns. Each key represents a column and must be an object with optional `edit` and `display` keys.
 
