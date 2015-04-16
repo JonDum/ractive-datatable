@@ -41,8 +41,11 @@ Requires some sort of CommonJS module system (Webpack, Browserify) until someone
 
 ### API
 
+##### Properties
 `data`: Array of Objects where each key is a column
+
 `columns`: Array specifying which columns to display and order (any keys missing in this array will not be shown)
+
 `config`: Object to configure individual columns. Each key represents a column and must be an object with optional `edit` and `display` keys.
 
 ```
@@ -52,6 +55,22 @@ config: {
     hiddenField: {display: false}  // <--- can't edit what isn't displayed yo
 }
 ```
+
+##### Events
+`edit`: Dispatched when an edit is made. Sends the entire row and the field that is edited (useful for extracting specific information from the row that changed).
+
+```
+this.on('dataedited', function(row, field) {
+    
+    var change = {};
+    change.id = row.id;
+    change[field] = row[field];
+    
+    changes.push(change);
+    
+});
+```
+
 
 
 Open to PRs and stuff. I'm around.
