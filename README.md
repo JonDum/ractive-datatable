@@ -44,7 +44,10 @@ Includes minimal styling under the class `.ractive-datatable`. Styles are includ
 ### API
 
 ##### Properties
+
 `data`: Array of Objects where each key is a column
+
+`editable`: globally allow/disallow editing
 
 `columns`: Array specifying which columns to display and order (any keys missing in this array will not be shown). If left `undefined`, the datatable will extract columns from the first item in the data array.
 
@@ -58,7 +61,20 @@ config: {
 }
 ```
 
+`page`: the current page
+
+`lastPage` (readonly): the last page or total number of pages
+
+##### Methods
+
+
+`previousPage`: Go to the previous page
+
+`nextPage`: Go to the next page
+
+
 ##### Events
+
 `edit`: Dispatched when an edit is made. Sends the entire row and the field that is edited (useful for extracting specific information from the row that changed).
 
 ```
@@ -73,7 +89,7 @@ this.on('dataedited', function(row, field) {
 });
 ```
 
-
+For other events you probably would be better off using Ractive's observers on your datatable instance and the property you want.
 
 Open to PRs and stuff. I'm around.
 
