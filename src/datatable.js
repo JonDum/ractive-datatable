@@ -229,11 +229,11 @@ var DataTable = Ractive.extend({
 
 
     previousPage: function() {
-        this.set('page', this.get('page') - 1);
+        this.set('page', Math.max(this.get('page') - 1, 1));
     },
 
     nextPage: function() {
-        this.set('page', this.get('page') + 1);
+        this.set('page', Math.min(this.get('page') + 1, this.get('lastPage')));
     },
 
     gotoPage: function(page)
