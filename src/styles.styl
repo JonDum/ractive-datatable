@@ -1,9 +1,11 @@
 .ractive-datatable
+    display block
+    max-width 100%
+    overflow scroll
 
     table
-        display block
-        max-width 100%
-        overflow scroll
+        border-collapse collapse
+        border-spacing 0
 
     tbody
         border 0px solid fade-out(#000, 0.75)
@@ -14,6 +16,8 @@
         padding 0.5em 1em
         font-size 1.2em
         text-align left
+        white-space nowrap
+        
 
     td
         text-align left
@@ -36,23 +40,24 @@
     .pagination
         float right
         user-select none
-        -webkit-user-select none
-        -moz-user-select none
-        -ms-user-select none
 
         .disabled
-            opacity 0.5
+            opacity 0.15
+            cursor default
+            user-select none
+
+        a
+            display inline-block
+            cursor pointer
 
     .pages
         a
-            display inline-block
             width 2em
             text-align center
 
         a.active
             font-weight bold
             text-decoration underline
-
 
 
 

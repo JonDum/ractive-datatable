@@ -1,0 +1,115 @@
+
+<html>
+    <head>
+        <title>Ractive-Datatable Demo</title>
+
+        <script src='//cdn.ractivejs.org/latest/ractive.min.js'></script>
+        <script src='//cdnjs.cloudflare.com/ajax/libs/chance/0.5.6/chance.min.js'></script>
+
+
+    </head>
+
+    <body>
+
+    <style>
+
+        body {
+            background: #ebedf1;
+            font-family: 'Lucida Grande', 'Heveltica Nueue', 'Helvetica', 'sans-serif';
+        }
+
+        demo {
+            padding: 3em;
+            display: block;
+        }
+
+        .options { 
+            background: rgba(0,0,0,0.1);
+            margin-bottom: 3em;
+            padding: 3em;
+        }
+        
+        .options div + div {
+            margin-top: 20px;
+        }
+
+        .filter {
+            text-align: right;
+            margin-bottom: 10px;
+        }
+
+    </style>
+
+        <demo></demo>
+
+        <script src='../datatable.js'></script>
+
+        <script id='template' type='text/ractive'>
+
+            <div class='options'>
+                <div>
+                    Add some data (randomly, sychronously generated, stutter not due to ractive-datatable)<br/>
+                    <button on-click='generate(200)'>Add 200 Rows</button>
+                    <button on-click='generate(2000)'>Add 2000 Rows</button>
+                </div>
+                <div>
+                    Page: <input value='{{page}}'> (pagination on bottom)
+                </div>
+                <div>
+                    Items per page: <input value='{{perpage}}'> (default 30)
+                </div>
+            </div>
+
+            <div class='filter'>
+                Filter: <input type='text' value='{{filter}}'>
+            </div>
+
+            <datatable data='{{data}}' filter='{{filter}}' perpage='{{perpage}}' page='{{page}}'></datatable>
+
+        </script>
+
+        <script>
+
+            var main = new Ractive({
+
+                el: 'demo',
+
+                template: '#template',
+
+                data: {
+                    data: [],
+                    perpage: 30,
+                },
+
+                components: {
+                    datatable:  datatable // don't do globals
+                    //datatable: require('ractive-datatable') // use a buildsystem
+                },
+
+                generate: function(num) {
+
+                    var d = [];
+
+                    for(var i = 0; i < num; i++) {
+                        var o = {};
+                        o['First Name'] = chance.first();
+                        o['Last Name'] = chance.last();
+                        o['Gender'] = chance.gender();
+                        o['age'] = chance.age();
+                        o['id'] = chance.guid();
+                        d.push(o);
+                    }
+
+                    var data = this.get('data')
+                    this.set('data', data.concat(d));
+                
+                },
+
+
+            })
+        
+        </script>
+    
+    </body>
+
+</html>

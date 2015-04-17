@@ -1,5 +1,9 @@
 #ractive-datatable
 
+### Demo
+
+[Live Demo](http://jondum.github.com/ractive-datatable/demo/)
+
 ### Install
 
 ```
@@ -35,9 +39,7 @@ Use it
 <datatable data='{{data}}' on-edit='dataedited' config='{{config}}' filter='{{filter}}'></datatable>
 ```
 
-Includes minimal styling under the class `.ractive-datatable`.
-
-Requires some sort of CommonJS module system (Webpack, Browserify) until someone submits a PR for a better way :)
+Includes minimal styling under the class `.ractive-datatable`. Styles are included in the javascript and added to the page on load. If you don't want these styles in the javascript, `require()` `src/datatable.js` and handle the styles as needed.
 
 ### API
 
