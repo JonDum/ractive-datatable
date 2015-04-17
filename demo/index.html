@@ -19,7 +19,7 @@
         }
 
         demo {
-            padding: 3em;
+            padding: 0 3em;
             display: block;
         }
 
@@ -36,6 +36,9 @@
         .filter {
             text-align: right;
             margin-bottom: 10px;
+        }
+        .center {
+            margin: 0 auto;
         }
 
     </style>
@@ -60,11 +63,16 @@
                 </div>
             </div>
 
-            <div class='filter'>
-                Filter: <input type='text' value='{{filter}}'>
-            </div>
+            <div class='center'>
+                <div class='filter'>
+                    Filter: <input type='text' value='{{filter}}'>
+                </div>
 
-            <datatable data='{{data}}' filter='{{filter}}' perpage='{{perpage}}' page='{{page}}'></datatable>
+                <!-- normally you wouldn't need to set all this on the html -->
+                <!-- most of it is for demo purposes-->
+                <datatable data='{{data}}' filter='{{filter}}' perpage='{{perpage}}' page='{{page}}'></datatable>
+
+            </div>
 
         </script>
 
@@ -94,9 +102,13 @@
                         var o = {};
                         o['First Name'] = chance.first();
                         o['Last Name'] = chance.last();
+                        o['ID'] = chance.guid();
                         o['Gender'] = chance.gender();
-                        o['age'] = chance.age();
-                        o['id'] = chance.guid();
+                        o['Age'] = chance.age();
+                        o['Address'] = chance.address();
+                        o['Zip Code'] = chance.zip({plusfour: true});
+                        o['Created'] = chance.date();
+                        o['Last Login'] = chance.date();
                         d.push(o);
                     }
 

@@ -14,13 +14,15 @@
             <tr>
                 {{#_columns}}
                     {{#if can('display', this) }}
-                    <td on-dblclick='set("editing", i + this)'>
                         {{#if editable && can('edit', this) && editing == i+this}}
+                        <td class='editing'>
                             <input value="{{rows[i][this]}}" on-blur-keyup='fieldedited()' twoway='false'>
+                        </td>
                         {{else}}
+                        <td on-dblclick='set("editing", i + this)'>
                             {{rows[i][this]}}
+                        </td>
                         {{/if}}
-                    </td>
                     {{/if}}
                 {{/}}
             </tr>
