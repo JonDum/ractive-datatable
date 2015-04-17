@@ -89,6 +89,7 @@ var DataTable = Ractive.extend({
             var data = this.get('data');
 
             var filter = this.get('filter');
+
             if(filter && filter.length > 0) {
                 var re = new RegExp(filter, 'i');
                 return data.filter(function(d) {
@@ -198,7 +199,7 @@ var DataTable = Ractive.extend({
         });
 
         // reset page when perpage changes
-        this.observe('perpage', function() {
+        this.observe('perpage filter', function() {
             this.set('page', 1);
         });
 

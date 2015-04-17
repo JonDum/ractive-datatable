@@ -152,6 +152,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            var data = this.get('data');
 
 	            var filter = this.get('filter');
+
 	            if(filter && filter.length > 0) {
 	                var re = new RegExp(filter, 'i');
 	                return data.filter(function(d) {
@@ -261,7 +262,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        });
 
 	        // reset page when perpage changes
-	        this.observe('perpage', function() {
+	        this.observe('perpage filter', function() {
 	            this.set('page', 1);
 	        });
 
@@ -292,11 +293,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 	    previousPage: function() {
-	        this.set('page', this.get('page') - 1);
+	        this.set('page', Math.max(this.get('page') - 1, 1));
 	    },
 
 	    nextPage: function() {
-	        this.set('page', this.get('page') + 1);
+	        this.set('page', Math.min(this.get('page') + 1, this.get('lastPage')));
 	    },
 
 	    gotoPage: function(page)
