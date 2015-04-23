@@ -269,6 +269,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    },
 
 	    fieldedited: function() {
+
 	        var event = this.event,
 	            e = event.original;
 
@@ -276,15 +277,21 @@ return /******/ (function(modules) { // webpackBootstrap
 	            return false;
 
 	        var index = event.index.i;
-	        var row = this.get('data.' + index);
+	        var row = this.get('_data.' + index);
 	        var field = event.context;
 
 	        // don't duplicate
 	        if(event.node.value !== row[field]) {
+
+	            // get the real position of index
+	            index = this.get('data').indexOf(row);
+	            
 	            var keypath = 'data.' + index + '.' + field;
+
 	            this.set(keypath, event.node.value);
 
 	            this.fire('edit', row, field);
+
 	        }
 
 	        this.set('editing', null);
