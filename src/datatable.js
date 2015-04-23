@@ -213,7 +213,7 @@ var DataTable = Ractive.extend({
         if(e.type == 'keyup' && e.keyCode !== 13)
             return false;
 
-        var index = event.index.i;
+        var index = event.index.i + (this.get('page') - 1) * this.get('perpage');
         var row = this.get('_data.' + index);
         var field = event.context;
 
