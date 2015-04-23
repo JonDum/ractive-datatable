@@ -323,14 +323,17 @@ return /******/ (function(modules) { // webpackBootstrap
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(5)(content, {});
+	if(content.placeholders) module.exports = content.placeholders;
 	// Hot Module Replacement
 	if(false) {
 		// When the styles change, update the <style> tags
-		module.hot.accept("!!/Users/JD/Dropbox/Creative/Projects/J2/stackhub/stackhub-webapp/src/main/webapp/node_modules/ractive-datatable/node_modules/css-loader/index.js!/Users/JD/Dropbox/Creative/Projects/J2/stackhub/stackhub-webapp/src/main/webapp/node_modules/ractive-datatable/node_modules/stylus-loader/index.js!/Users/JD/Dropbox/Creative/Projects/J2/stackhub/stackhub-webapp/src/main/webapp/node_modules/ractive-datatable/src/styles.styl", function() {
-			var newContent = require("!!/Users/JD/Dropbox/Creative/Projects/J2/stackhub/stackhub-webapp/src/main/webapp/node_modules/ractive-datatable/node_modules/css-loader/index.js!/Users/JD/Dropbox/Creative/Projects/J2/stackhub/stackhub-webapp/src/main/webapp/node_modules/ractive-datatable/node_modules/stylus-loader/index.js!/Users/JD/Dropbox/Creative/Projects/J2/stackhub/stackhub-webapp/src/main/webapp/node_modules/ractive-datatable/src/styles.styl");
-			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-			update(newContent);
-		});
+		if(!content.placeholders) {
+			module.hot.accept("!!./../node_modules/css-loader/index.js!./../node_modules/stylus-loader/index.js!./styles.styl", function() {
+				var newContent = require("!!./../node_modules/css-loader/index.js!./../node_modules/stylus-loader/index.js!./styles.styl");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
 		// When the module is disposed, remove the <style> tags
 		module.hot.dispose(function() { update(); });
 	}
@@ -457,6 +460,14 @@ return /******/ (function(modules) { // webpackBootstrap
 		return styleElement;
 	}
 
+	function createLinkElement() {
+		var linkElement = document.createElement("link");
+		var head = getHeadElement();
+		linkElement.rel = "stylesheet";
+		head.appendChild(linkElement);
+		return linkElement;
+	}
+
 	function addStyle(obj, options) {
 		var styleElement, update, remove;
 
@@ -465,10 +476,23 @@ return /******/ (function(modules) { // webpackBootstrap
 			styleElement = singletonElement || (singletonElement = createStyleElement());
 			update = applyToSingletonTag.bind(null, styleElement, styleIndex, false);
 			remove = applyToSingletonTag.bind(null, styleElement, styleIndex, true);
+		} else if(obj.sourceMap &&
+			typeof URL === "function" &&
+			typeof URL.createObjectURL === "function" &&
+			typeof URL.revokeObjectURL === "function" &&
+			typeof Blob === "function" &&
+			typeof btoa === "function") {
+			styleElement = createLinkElement();
+			update = updateLink.bind(null, styleElement);
+			remove = function() {
+				styleElement.parentNode.removeChild(styleElement);
+				if(styleElement.href)
+					URL.revokeObjectURL(styleElement.href);
+			};
 		} else {
 			styleElement = createStyleElement();
 			update = applyToTag.bind(null, styleElement);
-			remove = function () {
+			remove = function() {
 				styleElement.parentNode.removeChild(styleElement);
 			};
 		}
@@ -486,25 +510,20 @@ return /******/ (function(modules) { // webpackBootstrap
 		};
 	}
 
-	function replaceText(source, id, replacement) {
-		var boundaries = ["/** >>" + id + " **/", "/** " + id + "<< **/"];
-		var start = source.lastIndexOf(boundaries[0]);
-		var wrappedReplacement = replacement
-			? (boundaries[0] + replacement + boundaries[1])
-			: "";
-		if (source.lastIndexOf(boundaries[0]) >= 0) {
-			var end = source.lastIndexOf(boundaries[1]) + boundaries[1].length;
-			return source.slice(0, start) + wrappedReplacement + source.slice(end);
-		} else {
-			return source + wrappedReplacement;
-		}
-	}
+	var replaceText = (function () {
+		var textStore = [];
+
+		return function (index, replacement) {
+			textStore[index] = replacement;
+			return textStore.filter(Boolean).join('\n');
+		};
+	})();
 
 	function applyToSingletonTag(styleElement, index, remove, obj) {
 		var css = remove ? "" : obj.css;
 
-		if(styleElement.styleSheet) {
-			styleElement.styleSheet.cssText = replaceText(styleElement.styleSheet.cssText, index, css);
+		if (styleElement.styleSheet) {
+			styleElement.styleSheet.cssText = replaceText(index, css);
 		} else {
 			var cssNode = document.createTextNode(css);
 			var childNodes = styleElement.childNodes;
@@ -522,13 +541,6 @@ return /******/ (function(modules) { // webpackBootstrap
 		var media = obj.media;
 		var sourceMap = obj.sourceMap;
 
-		if(sourceMap && typeof btoa === "function") {
-			try {
-				css += "\n/*# sourceMappingURL=data:application/json;base64," + btoa(JSON.stringify(sourceMap)) + " */";
-				css = "@import url(\"data:text/css;base64," + btoa(css) + "\")";
-			} catch(e) {}
-		}
-
 		if(media) {
 			styleElement.setAttribute("media", media)
 		}
@@ -541,6 +553,25 @@ return /******/ (function(modules) { // webpackBootstrap
 			}
 			styleElement.appendChild(document.createTextNode(css));
 		}
+	}
+
+	function updateLink(linkElement, obj) {
+		var css = obj.css;
+		var media = obj.media;
+		var sourceMap = obj.sourceMap;
+
+		if(sourceMap) {
+			css += "\n/*# sourceMappingURL=data:application/json;base64," + btoa(JSON.stringify(sourceMap)) + " */";
+		}
+
+		var blob = new Blob([css], { type: "text/css" });
+
+		var oldSrc = linkElement.href;
+
+		linkElement.href = URL.createObjectURL(blob);
+
+		if(oldSrc)
+			URL.revokeObjectURL(oldSrc);
 	}
 
 

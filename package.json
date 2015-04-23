@@ -27,6 +27,7 @@
     "css-loader": "^0.10.1",
     "ractive": "^0.7.2",
     "ractive-loader": "^0.5.6",
+    "style-loader": "^0.11.0",
     "stylus-loader": "^1.1.0",
     "webpack": "^1.8.5"
   }
