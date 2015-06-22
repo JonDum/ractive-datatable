@@ -55,9 +55,10 @@ Includes minimal styling under the class `.ractive-datatable`. Styles are includ
 
 ```
 config: {
-    created: {edit: false},
-    id: {edit: false},
-    hiddenField: {display: false}  // <--- can't edit what isn't displayed yo
+    'created': {edit: false},
+    'id': {edit: false},
+    'hiddenField': {display: false},
+    'someOtherColumn': {edit: false}  
 }
 ```
 
