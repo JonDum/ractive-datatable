@@ -1,4 +1,6 @@
 
+require('./styles');
+
 var sortBy = require('./util/sortBy');
 
 var DataTable = Ractive.extend({
@@ -14,6 +16,7 @@ var DataTable = Ractive.extend({
         page: 1,
 
         editable: true,
+
         sortable: true,
 
         /**
@@ -67,15 +70,30 @@ var DataTable = Ractive.extend({
             return config[field][action];
         },
 
+        highlight: function(text) {
+
+            var self = this;
+            var filter = self.get('filter');
+
+            if(!filter || !text)
+                return text;
+
+            text = String(text);
+
+            if(text.indexOf(filter) > -1) {
+                return text.split(filter).join('<span class="highlight">' + filter + '</span>');
+            }
+
+            return text;
+        },
 
     },
 
     computed: {
 
         rows: function() {
-            //TODO use this for pagination
             
-            var page = this.get('page') - 1 ;
+            var page = this.get('page') - 1;
             var data = this.get('_data');
             var perpage = this.get('perpage');
             var total = this.get('total');

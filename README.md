@@ -18,7 +18,7 @@ npm install ractive-datatable --save
 * Well designed default styling
 * Cell Editing
 * Pagination (incl. navigation buttons)
-* Filtering
+* Filtering (with sexy highlights)
 * Sorting
 
 

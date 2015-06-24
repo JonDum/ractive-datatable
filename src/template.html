@@ -20,7 +20,7 @@
                         </td>
                         {{else}}
                         <td on-dblclick='set("editing", i + this)'>
-                            {{rows[i][this]}}
+                            {{{ rows[i] ? highlight( rows[i][this] ) : '' }}}
                         </td>
                         {{/if}}
                     {{/if}}
