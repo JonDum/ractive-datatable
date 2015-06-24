@@ -1,5 +1,7 @@
 #ractive-datatable
 
+Designed to be used directly, themed, subclassed, 
+
 ### Demo
 
 [Live Demo](http://jondum.github.com/ractive-datatable/demo/)
@@ -12,11 +14,12 @@ npm install ractive-datatable --save
 
 ### Features
 
-* Minimal but pretty
+* Minimal (3.45kb gzipped **including** styles, 1.71kb without)
+* Well designed default styling
 * Cell Editing
 * Pagination (incl. navigation buttons)
 * Filtering
-* Sorting (wip)
+* Sorting
 
 
 ### Usage

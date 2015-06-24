@@ -1,4 +1,5 @@
-require('./styles');
+
+var sortBy = require('./util/sortBy');
 
 var DataTable = Ractive.extend({
 
@@ -13,6 +14,7 @@ var DataTable = Ractive.extend({
         page: 1,
 
         editable: true,
+        sortable: true,
 
         /**
          *
@@ -83,20 +85,28 @@ var DataTable = Ractive.extend({
         },
 
         // `data` set publicly
-        // `_data` is internal, includes any filters
+        // `_data` is internal, includes any filters, sorted
         _data: function() {
 
-            var data = this.get('data');
+            var self = this;
+            var data = self.get('data');
 
-            var filter = this.get('filter');
+            var filter = self.get('filter');
 
             if(filter && filter.length > 0) {
                 var re = new RegExp(filter, 'i');
-                return data.filter(function(d) {
+                data = data.filter(function(d) {
                     for(var p in d)
                         if(d.hasOwnProperty(p) && re.test(d[p]))
                             return true;
                 });
+            }
+
+            var sortOn = self.get('sortOn');
+            var sortMode = self.get('sortMode');
+
+            if(sortOn) {
+                data = data.slice().sort(sortBy(sortOn, (sortMode == 'desc')));
             }
 
             return data;
@@ -110,14 +120,16 @@ var DataTable = Ractive.extend({
         //internal -- `columns` without underscore is the public prop
         _columns: function() {
 
-            var data = this.get('_data'),
-                columns = this.get('columns'),
-                order = this.get('order');
+            var self = this;
+
+            var data = self.get('_data'),
+                columns = self.get('columns'),
+                order = self.get('order');
 
             if(columns)
                 return columns;
 
-            var _columns = data && data[0] ? Object.keys(this.get('_data')[0]) : [];
+            var _columns = data && data[0] ? Object.keys(self.get('_data')[0]) : [];
 
             return _columns;
         },
@@ -163,7 +175,6 @@ var DataTable = Ractive.extend({
         }, 
 
         lastPage: function() {
-
             var total = this.get('total');
             var perpage = this.get('perpage');
 
@@ -187,10 +198,11 @@ var DataTable = Ractive.extend({
 
     oninit: function() {
 
+        var self = this;
         // autofocus editing inputs
-        this.observe('editing', function(value) {
+        self.observe('editing', function(value) {
             if(value) {
-                var node = this.find('td input');
+                var node = self.find('td input');
                 if(node)
                     node.focus();
             }
@@ -199,42 +211,65 @@ var DataTable = Ractive.extend({
         });
 
         // reset page when perpage changes
-        this.observe('perpage filter', function() {
-            this.set('page', 1);
+        self.observe('perpage filter', function() {
+            self.set('page', 1);
         });
 
     },
 
     fieldedited: function() {
 
+        var self = this;
         var event = this.event,
             e = event.original;
 
         if(e.type == 'keyup' && e.keyCode !== 13)
             return false;
 
-        var index = event.index.i + (this.get('page') - 1) * this.get('perpage');
-        var row = this.get('_data.' + index);
+        var index = event.index.i + (self.get('page') - 1) * self.get('perpage');
+        var row = self.get('_data.' + index);
         var field = event.context;
 
         // don't duplicate
         if(event.node.value !== row[field]) {
 
             // get the real position of index
-            index = this.get('data').indexOf(row);
+            index = self.get('data').indexOf(row);
             
             var keypath = 'data.' + index + '.' + field;
 
-            this.set(keypath, event.node.value);
+            self.set(keypath, event.node.value);
 
-            this.fire('edit', row, field);
+            self.fire('edit', row, field);
 
         }
 
-        this.set('editing', null);
+        self.set('editing', null);
 
     },
 
+    setSort: function(column) {
+
+        var self = this;
+
+        if(!column || !self.get('sortable'))
+            return
+
+        var sortMode = self.get('sortMode');
+        var sortOn = self.get('sortOn');
+        
+        // toggle sortMode
+        if(sortOn == column || !sortMode) {
+
+            if(sortMode == 'asc')
+                self.set('sortMode', 'desc')
+            else
+                self.set('sortMode', 'asc');
+
+        }
+
+        self.set('sortOn', column);
+    },
 
     previousPage: function() {
         this.set('page', Math.max(this.get('page') - 1, 1));

@@ -2,10 +2,10 @@
 <div class='ractive-datatable'>
     {{#if data}}
     <table>
-        <thead>
+        <thead class='{{sortable ? "sortable" : ""}}'>
             {{#_columns}}
                 {{#if can('display', this) }}
-                    <th>{{.}}</th>
+                <th class='{{#if sortOn == this}}sort {{sortMode}}{{/if}}' on-click='setSort(this)'>{{.}}</th>
                 {{/if}}
             {{/}}
         </thead>

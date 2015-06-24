@@ -13,12 +13,27 @@
         border-bottom-width 1px
         border-top-width 1px
 
+    thead.sortable th
+        cursor pointer
+
     th
         padding 0.5em 1em
         font-size 1.2em
         text-align left
         white-space nowrap
         
+        &.sort:after
+            content ''
+            border 5px solid transparent
+            display inline-block
+            margin-left 5px
+        &.sort.desc:after
+            border-top-color currentColor
+        &.sort.asc:after
+            border-bottom-color currentColor
+            position relative
+            top -5px
+
 
     td
         text-align left

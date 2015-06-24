@@ -19,7 +19,7 @@
         }
 
         demo {
-            padding: 0 3em;
+            padding: 3em;
             display: block;
         }
 
@@ -117,6 +117,10 @@
                 
                 },
 
+                oncomplete: function() {
+                    //debug stuff. Don't do this in production, kids
+                    window.d = this.findComponent('datatable');
+                }
 
             })
         
