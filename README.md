@@ -1,6 +1,5 @@
 #ractive-datatable
 
-Designed to be used directly, themed, subclassed, 
 
 ### Demo
 
