@@ -62,13 +62,13 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports, __webpack_require__) {
 
 	
-	__webpack_require__(3);
+	__webpack_require__(2);
 
-	var sortBy = __webpack_require__(2);
+	var sortBy = __webpack_require__(6);
 
 	var DataTable = Ractive.extend({
 
-	    template: __webpack_require__(5),
+	    template: __webpack_require__(7),
 
 	    data: {
 
@@ -376,67 +376,20 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 2 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/**
-	 * @description 
-	 * Returns a function which will sort an
-	 * array of objects by the given key.
-	 * 
-	 * @param  {String}  key
-	 * @param  {Boolean} reverse
-	 * @return {Function}     
-	 */
-	function sortBy(key, reverse) {
-
-	  // Move smaller items towards the front
-	  // or back of the array depending on if
-	  // we want to sort the array in reverse
-	  // order or not.
-	  var moveSmaller = reverse ? 1 : -1;
-
-	  // Move larger items towards the front
-	  // or back of the array depending on if
-	  // we want to sort the array in reverse
-	  // order or not.
-	  var moveLarger = reverse ? -1 : 1;
-
-	  /**
-	   * @param  {*} a
-	   * @param  {*} b
-	   * @return {Number}
-	   */
-	  return function(a, b) {
-	    if (a[key] < b[key]) {
-	      return moveSmaller;
-	    }
-	    if (a[key] > b[key]) {
-	      return moveLarger;
-	    }
-	    return 0;
-	  };
-
-	}
-
-	module.exports = sortBy;
-
-
-/***/ },
-/* 3 */
-/***/ function(module, exports, __webpack_require__) {
-
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(4);
+	var content = __webpack_require__(3);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(6)(content, {});
+	var update = __webpack_require__(5)(content, {});
 	if(content.placeholders) module.exports = content.placeholders;
 	// Hot Module Replacement
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.placeholders) {
-			module.hot.accept("!!./../node_modules/css-loader/index.js!./../node_modules/stylus-loader/index.js!./styles.styl", function() {
-				var newContent = require("!!./../node_modules/css-loader/index.js!./../node_modules/stylus-loader/index.js!./styles.styl");
+			module.hot.accept("!!./../node_modules/css-loader/index.js!./../../../../Applications/lib/node_modules/stylus-loader/index.js!./styles.styl", function() {
+				var newContent = require("!!./../node_modules/css-loader/index.js!./../../../../Applications/lib/node_modules/stylus-loader/index.js!./styles.styl");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -446,20 +399,71 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 /***/ },
-/* 4 */
+/* 3 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(7)();
-	exports.push([module.id, ".ractive-datatable {\n  display: block;\n  max-width: 100%;\n}\n.ractive-datatable .scroll {\n  overflow: scroll;\n}\n.ractive-datatable table {\n  border-collapse: collapse;\n  border-spacing: 0;\n  width: 100%;\n}\n.ractive-datatable tbody {\n  border: 0px solid rgba(0,0,0,0.25);\n  border-bottom-width: 1px;\n  border-top-width: 1px;\n}\n.ractive-datatable thead.sortable th {\n  cursor: pointer;\n}\n.ractive-datatable th {\n  padding: 0.5em 1em;\n  font-size: 1.2em;\n  text-align: left;\n  white-space: nowrap;\n}\n.ractive-datatable th.sort:after {\n  content: '';\n  border: 5px solid transparent;\n  display: inline-block;\n  margin-left: 5px;\n}\n.ractive-datatable th.sort.desc:after {\n  border-top-color: currentColor;\n}\n.ractive-datatable th.sort.asc:after {\n  border-bottom-color: currentColor;\n  position: relative;\n  top: -5px;\n}\n.ractive-datatable td {\n  text-align: left;\n  padding: 0.5em 1em;\n  white-space: nowrap;\n}\n.ractive-datatable td.editing {\n  padding: 0;\n}\n.ractive-datatable td.editing input {\n  padding: 0.5em 1em;\n  background: none;\n  border: none;\n  outline: none;\n  width: 100%;\n  font-size: 1em;\n  border-bottom: 1px dotted #333;\n}\n.ractive-datatable .highlight {\n  background: linear-gradient(rgba(107,206,255,0.5), rgba(0,146,219,0.5));\n  color: rgba(0,0,0,0.9);\n  border-radius: 3px;\n  box-shadow: 0 1px rgba(255,255,255,0.5) inset;\n  border: 1px solid #0092db;\n}\n.ractive-datatable tr {\n  background: #fff;\n}\n.ractive-datatable tr:nth-child(even) {\n  background: #fafafa;\n}\n.ractive-datatable tr + tr {\n  border-top: 1px solid #ddd;\n}\n.ractive-datatable tr:hover td {\n  background: rgba(0,0,0,0.05);\n}\n.ractive-datatable > div {\n  margin-top: 5px;\n}\n.ractive-datatable .pagination {\n  float: right;\n  user-select: none;\n}\n.ractive-datatable .pagination .disabled {\n  opacity: 0.15;\n  cursor: default;\n  user-select: none;\n}\n.ractive-datatable .pagination a {\n  display: inline-block;\n  cursor: pointer;\n}\n.ractive-datatable .pages a {\n  width: 2em;\n  text-align: center;\n}\n.ractive-datatable .pages a.active {\n  font-weight: bold;\n  text-decoration: underline;\n}\n", ""]);
+	exports = module.exports = __webpack_require__(4)();
+	exports.push([module.id, ".ractive-datatable {\n  display: block;\n  max-width: 100%;\n}\n.ractive-datatable .scroll {\n  overflow: scroll;\n}\n.ractive-datatable table {\n  border-collapse: collapse;\n  border-spacing: 0;\n  width: 100%;\n}\n.ractive-datatable tbody {\n  border: 0px solid rgba(0,0,0,0.25);\n  border-bottom-width: 1px;\n  border-top-width: 1px;\n}\n.ractive-datatable thead.sortable th {\n  cursor: pointer;\n}\n.ractive-datatable th {\n  padding: 0.5em 1em;\n  font-size: 1.2em;\n  text-align: left;\n  white-space: nowrap;\n}\n.ractive-datatable th.sort:after {\n  content: '';\n  border: 5px solid transparent;\n  display: inline-block;\n  margin-left: 5px;\n  vertical-align: middle;\n}\n.ractive-datatable th.sort.desc:after {\n  border-top-color: currentColor;\n}\n.ractive-datatable th.sort.asc:after {\n  border-bottom-color: currentColor;\n  position: relative;\n  top: -5px;\n}\n.ractive-datatable td {\n  text-align: left;\n  padding: 0.5em 1em;\n  white-space: nowrap;\n}\n.ractive-datatable td.editing {\n  padding: 0;\n}\n.ractive-datatable td.editing input {\n  padding: 0.5em 1em;\n  background: none;\n  border: none;\n  outline: none;\n  width: 100%;\n  font-size: 1em;\n  border-bottom: 1px dotted #333;\n}\n.ractive-datatable .highlight {\n  background: linear-gradient(rgba(107,206,255,0.5), rgba(0,146,219,0.5));\n  color: rgba(0,0,0,0.9);\n  border-radius: 3px;\n  box-shadow: 0 1px rgba(255,255,255,0.5) inset;\n  border: 1px solid #0092db;\n}\n.ractive-datatable tr {\n  background: #fff;\n}\n.ractive-datatable tr:nth-child(even) {\n  background: #fafafa;\n}\n.ractive-datatable tr + tr {\n  border-top: 1px solid #ddd;\n}\n.ractive-datatable tr:hover td {\n  background: rgba(0,0,0,0.05);\n}\n.ractive-datatable > div {\n  margin-top: 5px;\n}\n.ractive-datatable .pagination {\n  float: right;\n  user-select: none;\n}\n.ractive-datatable .pagination .disabled {\n  opacity: 0.15;\n  cursor: default;\n  user-select: none;\n}\n.ractive-datatable .pagination a {\n  display: inline-block;\n  cursor: pointer;\n}\n.ractive-datatable .pages a {\n  width: 2em;\n  text-align: center;\n}\n.ractive-datatable .pages a.active {\n  font-weight: bold;\n  text-decoration: underline;\n}\n", ""]);
+
+/***/ },
+/* 4 */
+/***/ function(module, exports) {
+
+	/*
+		MIT License http://www.opensource.org/licenses/mit-license.php
+		Author Tobias Koppers @sokra
+	*/
+	// css base code, injected by the css-loader
+	// 
+	module.exports = function() {
+		var list = [];
+
+		// return the list of modules as css string
+		list.toString = function toString() {
+			var result = [];
+			for(var i = 0; i < this.length; i++) {
+				var item = this[i];
+				if(item[2]) {
+					result.push("@media " + item[2] + "{" + item[1] + "}");
+				} else {
+					result.push(item[1]);
+				}
+			}
+			return result.join("");
+		};
+
+		// import a list of modules into the list
+		list.i = function(modules, mediaQuery) {
+			if(typeof modules === "string")
+				modules = [[null, modules, ""]];
+			var alreadyImportedModules = {};
+			for(var i = 0; i < this.length; i++) {
+				var id = this[i][0];
+				if(typeof id === "number")
+					alreadyImportedModules[id] = true;
+			}
+			for(var i = 0; i < modules.length; i++) {
+				var item = modules[i];
+				// skip already imported module
+				// this implementation is not 100% perfect for weird media query combinations
+				//  when a module is imported multiple times with different media queries.
+				//  I hope this will never occur (Hey this way we have smaller bundles)
+				if(typeof item[0] !== "number" || !alreadyImportedModules[item[0]]) {
+					if(mediaQuery && !item[2]) {
+						item[2] = mediaQuery;
+					} else if(mediaQuery) {
+						item[2] = "(" + item[2] + ") and (" + mediaQuery + ")";
+					}
+					list.push(item);
+				}
+			}
+		};
+		return list;
+	};
+
 
 /***/ },
 /* 5 */
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports={"v":3,"t":[{"t":7,"e":"div","a":{"class":"ractive-datatable"},"f":[{"t":4,"f":[{"t":7,"e":"div","a":{"class":"scroll"},"f":[{"t":7,"e":"table","f":[{"t":7,"e":"thead","a":{"class":[{"t":2,"x":{"r":["sortable"],"s":"_0?\"sortable\":\"\""}}]},"f":[{"t":4,"f":[{"t":4,"f":[{"t":7,"e":"th","a":{"class":[{"t":4,"f":["sort ",{"t":2,"r":"sortMode"}],"n":50,"x":{"r":["sortOn","."],"s":"_0==_1"}}]},"v":{"click":{"m":"setSort","a":{"r":["."],"s":"[_0]"}}},"f":[{"t":2,"r":"."}]}],"n":50,"x":{"r":["can","."],"s":"_0(\"display\",_1)"}}],"r":"_columns"}]}," ",{"t":7,"e":"tbody","f":[{"t":4,"f":[{"t":7,"e":"tr","f":[{"t":4,"f":[{"t":4,"f":[{"t":4,"f":[{"t":7,"e":"td","a":{"class":"editing"},"f":[{"t":7,"e":"input","a":{"value":[{"t":2,"rx":{"r":"rows","m":[{"t":30,"n":"i"},{"t":30,"n":"."}]}}],"twoway":"false"},"v":{"blur-keyup":{"m":"fieldedited","a":{"r":[],"s":"[]"}}}}]}],"n":50,"x":{"r":["editable","can","editing","i","."],"s":"_0&&_1(\"edit\",_4)&&_2==_3+_4"}},{"t":4,"n":51,"f":[{"t":7,"e":"td","v":{"dblclick":{"m":"set","a":{"r":["i","."],"s":"[\"editing\",_0+_1]"}}},"f":[{"t":3,"x":{"r":["highlight",".","i","rows"],"s":"_3[_2]?_0(_3[_2][_1]):\"\""}}]}],"x":{"r":["editable","can","editing","i","."],"s":"_0&&_1(\"edit\",_4)&&_2==_3+_4"}}],"n":50,"x":{"r":["can","."],"s":"_0(\"display\",_1)"}}],"r":"_columns"}]}],"i":"i","r":"rows"}]}]}]}," ",{"t":7,"e":"div","f":["Displaying ",{"t":2,"r":"current"}," of ",{"t":2,"r":"total"}," ",{"t":4,"f":[{"t":7,"e":"span","a":{"class":"pagination"},"f":[{"t":4,"f":[{"t":7,"e":"span","a":{"class":"disabled"},"f":["Previous"]}],"n":50,"r":"onFirstPage"},{"t":4,"n":51,"f":[{"t":7,"e":"a","v":{"click":{"m":"previousPage","a":{"r":[],"s":"[]"}}},"f":["Previous"]}],"r":"onFirstPage"}," ",{"t":7,"e":"span","a":{"class":"pages"},"f":[{"t":4,"f":[{"t":7,"e":"a","v":{"click":{"m":"gotoPage","a":{"r":["."],"s":"[_0]"}}},"a":{"class":[{"t":2,"x":{"r":["page","."],"s":"_0==_1?\"active\":\"\""}}]},"f":[{"t":2,"r":"."}]}],"r":"pages"}]}," ",{"t":4,"f":[{"t":7,"e":"span","a":{"class":"disabled"},"f":["Next"]}],"n":50,"r":"onLastPage"},{"t":4,"n":51,"f":[{"t":7,"e":"a","v":{"click":{"m":"nextPage","a":{"r":[],"s":"[]"}}},"f":["Next"]}],"r":"onLastPage"}]}],"n":50,"r":"pages"}]}],"n":50,"r":"data"},{"t":4,"n":51,"f":[{"t":7,"e":"div","a":{"class":"no-data"},"f":["No data"]}],"r":"data"}]}]};
-
-/***/ },
-/* 6 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -683,61 +687,57 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
+/* 6 */
+/***/ function(module, exports) {
+
+	/**
+	 * @description 
+	 * Returns a function which will sort an
+	 * array of objects by the given key.
+	 * 
+	 * @param  {String}  key
+	 * @param  {Boolean} reverse
+	 * @return {Function}     
+	 */
+	function sortBy(key, reverse) {
+
+	  // Move smaller items towards the front
+	  // or back of the array depending on if
+	  // we want to sort the array in reverse
+	  // order or not.
+	  var moveSmaller = reverse ? 1 : -1;
+
+	  // Move larger items towards the front
+	  // or back of the array depending on if
+	  // we want to sort the array in reverse
+	  // order or not.
+	  var moveLarger = reverse ? -1 : 1;
+
+	  /**
+	   * @param  {*} a
+	   * @param  {*} b
+	   * @return {Number}
+	   */
+	  return function(a, b) {
+	    if (a[key] < b[key]) {
+	      return moveSmaller;
+	    }
+	    if (a[key] > b[key]) {
+	      return moveLarger;
+	    }
+	    return 0;
+	  };
+
+	}
+
+	module.exports = sortBy;
+
+
+/***/ },
 /* 7 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ function(module, exports) {
 
-	/*
-		MIT License http://www.opensource.org/licenses/mit-license.php
-		Author Tobias Koppers @sokra
-	*/
-	// css base code, injected by the css-loader
-	// 
-	module.exports = function() {
-		var list = [];
-
-		// return the list of modules as css string
-		list.toString = function toString() {
-			var result = [];
-			for(var i = 0; i < this.length; i++) {
-				var item = this[i];
-				if(item[2]) {
-					result.push("@media " + item[2] + "{" + item[1] + "}");
-				} else {
-					result.push(item[1]);
-				}
-			}
-			return result.join("");
-		};
-
-		// import a list of modules into the list
-		list.i = function(modules, mediaQuery) {
-			if(typeof modules === "string")
-				modules = [[null, modules, ""]];
-			var alreadyImportedModules = {};
-			for(var i = 0; i < this.length; i++) {
-				var id = this[i][0];
-				if(typeof id === "number")
-					alreadyImportedModules[id] = true;
-			}
-			for(var i = 0; i < modules.length; i++) {
-				var item = modules[i];
-				// skip already imported module
-				// this implementation is not 100% perfect for weird media query combinations
-				//  when a module is imported multiple times with different media queries.
-				//  I hope this will never occur (Hey this way we have smaller bundles)
-				if(typeof item[0] !== "number" || !alreadyImportedModules[item[0]]) {
-					if(mediaQuery && !item[2]) {
-						item[2] = mediaQuery;
-					} else if(mediaQuery) {
-						item[2] = "(" + item[2] + ") and (" + mediaQuery + ")";
-					}
-					list.push(item);
-				}
-			}
-		};
-		return list;
-	};
-
+	module.exports={"v":3,"t":[{"t":7,"e":"div","a":{"class":"ractive-datatable"},"f":[{"t":4,"f":[{"t":7,"e":"div","a":{"class":"scroll"},"f":[{"t":7,"e":"table","f":[{"t":7,"e":"thead","a":{"class":[{"t":2,"x":{"r":["sortable"],"s":"_0?\"sortable\":\"\""}}]},"f":[{"t":4,"f":[{"t":4,"f":[{"t":7,"e":"th","a":{"class":[{"t":4,"f":["sort ",{"t":2,"r":"sortMode"}],"n":50,"x":{"r":["sortOn","."],"s":"_0==_1"}}]},"v":{"click":{"m":"setSort","a":{"r":["."],"s":"[_0]"}}},"f":[{"t":2,"r":"."}]}],"n":50,"x":{"r":["can","."],"s":"_0(\"display\",_1)"}}],"r":"_columns"}]}," ",{"t":7,"e":"tbody","f":[{"t":4,"f":[{"t":7,"e":"tr","f":[{"t":4,"f":[{"t":4,"f":[{"t":4,"f":[{"t":7,"e":"td","a":{"class":"editing"},"f":[{"t":7,"e":"input","a":{"value":[{"t":2,"rx":{"r":"rows","m":[{"t":30,"n":"i"},{"t":30,"n":"."}]}}],"twoway":"false"},"v":{"blur-keyup":{"m":"fieldedited","a":{"r":[],"s":"[]"}}}}]}],"n":50,"x":{"r":["editable","can","editing","i","."],"s":"_0&&_1(\"edit\",_4)&&_2==_3+_4"}},{"t":4,"n":51,"f":[{"t":7,"e":"td","v":{"dblclick":{"m":"set","a":{"r":["i","."],"s":"[\"editing\",_0+_1]"}}},"f":[{"t":3,"x":{"r":["highlight",".","i","rows"],"s":"_3[_2]?_0(_3[_2][_1]):\"\""}}]}],"x":{"r":["editable","can","editing","i","."],"s":"_0&&_1(\"edit\",_4)&&_2==_3+_4"}}],"n":50,"x":{"r":["can","."],"s":"_0(\"display\",_1)"}}],"r":"_columns"}]}],"i":"i","r":"rows"}]}]}]}," ",{"t":7,"e":"div","f":["Displaying ",{"t":2,"r":"current"}," of ",{"t":2,"r":"total"}," ",{"t":4,"f":[{"t":7,"e":"span","a":{"class":"pagination"},"f":[{"t":4,"f":[{"t":7,"e":"span","a":{"class":"disabled"},"f":["Previous"]}],"n":50,"r":"onFirstPage"},{"t":4,"n":51,"f":[{"t":7,"e":"a","v":{"click":{"m":"previousPage","a":{"r":[],"s":"[]"}}},"f":["Previous"]}],"r":"onFirstPage"}," ",{"t":7,"e":"span","a":{"class":"pages"},"f":[{"t":4,"f":[{"t":7,"e":"a","v":{"click":{"m":"gotoPage","a":{"r":["."],"s":"[_0]"}}},"a":{"class":[{"t":2,"x":{"r":["page","."],"s":"_0==_1?\"active\":\"\""}}]},"f":[{"t":2,"r":"."}]}],"r":"pages"}]}," ",{"t":4,"f":[{"t":7,"e":"span","a":{"class":"disabled"},"f":["Next"]}],"n":50,"r":"onLastPage"},{"t":4,"n":51,"f":[{"t":7,"e":"a","v":{"click":{"m":"nextPage","a":{"r":[],"s":"[]"}}},"f":["Next"]}],"r":"onLastPage"}]}],"n":50,"r":"pages"}]}],"n":50,"r":"data"},{"t":4,"n":51,"f":[{"t":7,"e":"div","a":{"class":"no-data"},"f":["No data"]}],"r":"data"}]}]};
 
 /***/ }
 /******/ ])
