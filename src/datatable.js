@@ -28,7 +28,7 @@ var DataTable = Ractive.extend({
          * Determines the ordering of the columns. If falsey, columns are extracted by
          * the first object in the data array.
          *
-         * Omitting a column here will also have the effect of it not being displayed (same as 
+         * Omitting a column here will also have the effect of it not being displayed (same as
          * setting config[columnName].display = false);
          *
          */
@@ -92,7 +92,7 @@ var DataTable = Ractive.extend({
     computed: {
 
         rows: function() {
-            
+
             var page = this.get('page') - 1;
             var data = this.get('_data');
             var perpage = this.get('perpage');
@@ -190,7 +190,7 @@ var DataTable = Ractive.extend({
                 ret[ret.length - 1] = lastPage;
 
             return ret;
-        }, 
+        },
 
         lastPage: function() {
             var total = this.get('total');
@@ -253,7 +253,7 @@ var DataTable = Ractive.extend({
 
             // get the real position of index
             index = self.get('data').indexOf(row);
-            
+
             var keypath = 'data.' + index + '.' + field;
 
             self.set(keypath, event.node.value);
@@ -275,7 +275,7 @@ var DataTable = Ractive.extend({
 
         var sortMode = self.get('sortMode');
         var sortOn = self.get('sortOn');
-        
+
         // toggle sortMode
         if(sortOn == column || !sortMode) {
 
