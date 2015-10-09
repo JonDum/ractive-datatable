@@ -141,15 +141,13 @@ var DataTable = Ractive.extend({
             var self = this;
 
             var data = self.get('_data'),
-                columns = self.get('columns'),
-                order = self.get('order');
+                columns = self.get('columns');
 
             if(columns)
                 return columns;
 
-            var _columns = data && data[0] ? Object.keys(self.get('_data')[0]) : [];
+            return data && data[0] ? Object.keys(self.get('_data')[0]) : [];
 
-            return _columns;
         },
 
         current: function() {
