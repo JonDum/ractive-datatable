@@ -6,7 +6,7 @@
             <thead class='{{sortable ? "sortable" : ""}}'>
                 {{#_columns}}
                     {{#if can('display', this) }}
-                    <th class='{{#if sortOn == this}}sort {{sortMode}}{{/if}}' on-click='setSort(this)'>{{.}}</th>
+                    <th class='{{#if sortOn === this}}sort {{sortMode}}{{/if}}' on-click='setSort(this)'>{{.}}</th>
                     {{/if}}
                 {{/}}
             </thead>
