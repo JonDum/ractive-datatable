@@ -63,7 +63,7 @@ Will render every row in the "timestamp" column with the passed in partial (in t
 
 `editable`: globally allow/disallow editing
 
-`filter`: A string to filter the rows on. Searches through all cells with `indexOf`, displaying only rows that match and cells with matches are highlighted.
+`filter`: A string to filter the rows on. Searches through all cells with a case-insensitive RegEx and displays only rows that match. Cells with matches are highlighted.
 
 `columns`: Array specifying which columns to display and order (any keys missing in this array will not be shown). If left `undefined`, the datatable will extract columns from the first item in the data array.
 
