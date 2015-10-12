@@ -20,6 +20,7 @@ npm install ractive-datatable --save
 * Filtering (with sexy highlights)
 * Sorting
 * Per-cell partials (new!)
+* Selection (new!) (wip!)
 
 ### Usage
 
@@ -68,6 +69,10 @@ Will render every row in the "timestamp" column with the passed in partial (in t
 `columns`: Array specifying which columns to display and order (any keys missing in this array will not be shown). If left `undefined`, the datatable will extract columns from the first item in the data array.
 
 `config`: Object to configure individual columns. Each key represents a column and must be an object with optional `edit` and `display` keys.
+
+`selectionMode`: Either `row` or `cell` (WIP). Allows for rows to be selected on click
+
+`selection`: An array of the currently selected objects from `data`.
 
 ```
 config: {

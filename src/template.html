@@ -12,16 +12,16 @@
             </thead>
             <tbody>
                 {{#rows:i}}
-                <tr>
+                <tr {{#if selectionMode == 'row' && _selection.indexOf(index) !== -1 }}class='selected'{{/if}} on-click='selectRow(event)' index='{{index}}'>
                     {{#_columns:c}}
                         {{#if can('display', this) }}
                             {{#if editable && can('edit', this) && editing == i+this}}
                             <td class='editing'>
-                                <input value="{{rows[i][this]}}" on-blur-keyup='fieldedited()' twoway='false'>
+                                <input value="{{rows[i].item[this]}}" on-blur-keyup='fieldedited(event)' twoway='false'>
                             </td>
                             {{else}}
-                            <td on-dblclick='set("editing", i + this)'>
-                                {{> cellFor(_columns[c]) rows[i][this] }}
+                            <td on-dblclick='set("editing", i + this)' {{#if selectionMode == 'cell' && selection[index] && selection[index][c] }}class='selected'{{/if}}>
+                                {{> cellFor(_columns[c]) rows[i].item[this] }}
                             </td>
                             {{/if}}
                         {{/if}}

@@ -61,6 +61,14 @@
                 <div>
                     Items per page: <input value='{{perpage}}'> (default 30)
                 </div>
+                <div>
+                    <label> Selection mode</label>
+                    <select value='{{selectionMode}}'>
+                        <option value='{{null}}'>none</option>
+                        <option>row</option>
+                        <option>cell</option>
+                    </select>
+                </div>
             </div>
 
             <div class='center'>
@@ -70,7 +78,7 @@
 
                 <!-- normally you wouldn't need to set all this on the html -->
                 <!-- most of it is for demo purposes-->
-                <datatable data='{{data}}' filter='{{filter}}' perpage='{{perpage}}' page='{{page}}'></datatable>
+                <datatable data='{{data}}' filter='{{filter}}' perpage='{{perpage}}' page='{{page}}' selectionMode='{{selectionMode}}'></datatable>
 
             </div>
 

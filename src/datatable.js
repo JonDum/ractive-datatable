@@ -7,95 +7,105 @@ var DataTable = Ractive.extend({
 
     template: require('./template.html'),
 
-    data: {
+    data: function() {
+        return {
+            filter: '',
 
-        filter: '',
+            perpage: 30,
 
-        perpage: 30,
+            page: 1,
 
-        page: 1,
+            editable: true,
 
-        editable: true,
+            sortable: true,
 
-        sortable: true,
+            _selection: [],
 
-        /**
-         *
-         * @name columns
-         * @type Array
-         * @default undefined
-         *
-         * Determines the ordering of the columns. If falsey, columns are extracted by
-         * the first object in the data array.
-         *
-         * Omitting a column here will also have the effect of it not being displayed (same as
-         * setting config[columnName].display = false);
-         *
-         */
-        columns: null,
+            selectionMode: '', // "row" or "cell"
 
-        /**
-         *
-         * @name config
-         * @type Object
-         * @default undefined
-         *
-         * Used to change functionaliy of specific columns
-         *
-         * Falsey => Display all fields (default)
-         *
-         * Object => Configure which fields to display/hide/make editable
-         *
-         * i.e. {
-         *       name: {edit: true, display: true},  <-- redundant since this is the default
-         *       created: {edit: false}, <--- still displayed, but can't edit
-         *       id: {display: false}, <--- can't edit what isn't there
-         *      }
-         */
-        config: null,
+            /**
+             *
+             * @name columns
+             * @type Array
+             * @default undefined
+             *
+             * Determines the ordering of the columns. If falsey, columns are extracted by
+             * the first object in the data array.
+             *
+             * Omitting a column here will also have the effect of it not being displayed (same as
+             * setting config[columnName].display = false);
+             *
+             */
+            columns: null,
 
-        can: function(action, field) {
+            /**
+             *
+             * @name config
+             * @type Object
+             * @default undefined
+             *
+             * Used to change functionaliy of specific columns
+             *
+             * Falsey => Display all fields (default)
+             *
+             * Object => Configure which fields to display/hide/make editable
+             *
+             * i.e. {
+             *       name: {edit: true, display: true},  <-- redundant since this is the default
+             *       created: {edit: false}, <--- still displayed, but can't edit
+             *       id: {display: false}, <--- can't edit what isn't there
+             *      }
+             */
+            config: null,
 
-            var config = this.get('config');
+            can: function(action, field) {
 
-            if(!config)
-                return true;
+                var config = this.get('config');
 
-            if(typeof config[field] === 'undefined')
-                return true
+                if(!config)
+                    return true;
 
-            if(config[field] && typeof config[field][action] === 'undefined')
-                return true;
+                if(typeof config[field] === 'undefined')
+                    return true
 
-            return config[field][action];
-        },
+                if(config[field] && typeof config[field][action] === 'undefined')
+                    return true;
 
-        highlight: function(text) {
+                return config[field][action];
+            },
 
-            var self = this;
-            var filter = self.get('filter');
+            highlight: function(text) {
 
-            if(!filter || !text)
+                var self = this;
+                var filter = self.get('filter');
+
+                if(!filter || !text)
+                    return text;
+
+                text = String(text);
+
+                if(text.indexOf(filter) > -1) {
+                    return text.split(filter).join('<span class="highlight">' + filter + '</span>');
+                }
+
                 return text;
+            },
 
-            text = String(text);
+            cellFor: function(column) {
 
-            if(text.indexOf(filter) > -1) {
-                return text.split(filter).join('<span class="highlight">' + filter + '</span>');
-            }
+                if(this.partials[column])
+                    return column;
+                
+                return '__default__';
 
-            return text;
-        },
-
-        cellFor: function(column) {
-
-            if(this.partials[column])
-                return column;
+            },
             
-            return '__default__';
+             test: function() {
+                 console.log(arguments);
+                 return true
+             }
 
         }
-
     },
 
     computed: {
@@ -107,8 +117,14 @@ var DataTable = Ractive.extend({
             var perpage = this.get('perpage');
             var total = this.get('total');
 
-            return _data.slice(page * perpage, Math.min(page * perpage + perpage, total));
+            // the original data, unfiltered
+            var data = this.get('data');
 
+            return _data
+                   .slice(page * perpage, Math.min(page * perpage + perpage, total))
+                   .map(function(v, i) {
+                       return {item: v, index: data.indexOf(v)};
+                   });
         },
 
         // `data` set publicly
@@ -219,6 +235,17 @@ var DataTable = Ractive.extend({
             return page == lastPage;
         },
 
+        selection: function() {
+
+            var _selection = this.get('_selection');
+            var data = this.get('data');
+
+            return _selection.map(function(v) {
+                return data[v];
+            });
+
+        }
+
     },
 
     partials: {
@@ -275,6 +302,35 @@ var DataTable = Ractive.extend({
 
         self.set('editing', null);
 
+    },
+
+    selectRow: function(details) {
+
+        var mode = this.get('selectionMode');
+
+        if(mode == 'cell')
+            return;
+
+        var _selection = this.get('_selection');
+
+        var row = details.context.index;
+
+        var index = _selection.indexOf(row);
+
+        if(index > -1)
+            _selection.splice(index, 1);
+        else
+            _selection.push(row);
+
+        this.set('_selection', _selection);
+
+    },
+    
+    selectCell: function(details) {
+        var event = details.original;
+        event.stopImmediatePropagation();
+
+        //TODO
     },
 
     setSort: function(column) {
