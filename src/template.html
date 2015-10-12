@@ -13,7 +13,7 @@
             <tbody>
                 {{#rows:i}}
                 <tr>
-                    {{#_columns}}
+                    {{#_columns:c}}
                         {{#if can('display', this) }}
                             {{#if editable && can('edit', this) && editing == i+this}}
                             <td class='editing'>
@@ -21,7 +21,7 @@
                             </td>
                             {{else}}
                             <td on-dblclick='set("editing", i + this)'>
-                                {{{ rows[i] ? highlight( rows[i][this] ) : '' }}}
+                                {{> cellFor(_columns[c]) rows[i][this] }}
                             </td>
                             {{/if}}
                         {{/if}}

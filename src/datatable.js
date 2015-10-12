@@ -1,11 +1,11 @@
 
-require('./styles');
+require('./styles.styl');
 
 var sortBy = require('./util/sortBy');
 
 var DataTable = Ractive.extend({
 
-    template: require('./template'),
+    template: require('./template.html'),
 
     data: {
 
@@ -86,6 +86,15 @@ var DataTable = Ractive.extend({
 
             return text;
         },
+
+        cellFor: function(column) {
+
+            if(this.partials[column])
+                return column;
+            
+            return '__default__';
+
+        }
 
     },
 
@@ -210,6 +219,10 @@ var DataTable = Ractive.extend({
             return page == lastPage;
         },
 
+    },
+
+    partials: {
+        __default__: require('./partials/default.html')
     },
 
     oninit: function() {

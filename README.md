@@ -19,7 +19,7 @@ npm install ractive-datatable --save
 * Pagination (incl. navigation buttons)
 * Filtering (with sexy highlights)
 * Sorting
-
+* Per-cell partials (new!)
 
 ### Usage
 
@@ -43,6 +43,18 @@ Use it
 
 Includes minimal styling under the class `.ractive-datatable`. Styles are included in the javascript and added to the page on load. If you don't want these styles in the javascript, `require()` `src/datatable.js` and handle the styles as needed.
 
+To use a specific partial for a cell, create an inline partial expression inside the tag of the component:
+
+```
+<datatable data='{{data}}' on-edit='dataedited' config='{{config}}' filter='{{filter}}'>
+    {{#partial timestamp}}
+        {{ moment(this).fromNow() }}
+    {{/partial}}
+</datatable>
+```
+
+Will render every row in the "timestamp" column with the passed in partial (in this case formatting the timestamp using moment.js).
+
 ### API
 
 ##### Properties
@@ -50,6 +62,8 @@ Includes minimal styling under the class `.ractive-datatable`. Styles are includ
 `data`: Array of Objects where each key is a column
 
 `editable`: globally allow/disallow editing
+
+`filter`: A string to filter the rows on. Searches through all cells with `indexOf`, displaying only rows that match and cells with matches are highlighted.
 
 `columns`: Array specifying which columns to display and order (any keys missing in this array will not be shown). If left `undefined`, the datatable will extract columns from the first item in the data array.
 
