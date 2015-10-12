@@ -103,11 +103,11 @@ var DataTable = Ractive.extend({
         rows: function() {
 
             var page = this.get('page') - 1;
-            var data = this.get('_data');
+            var _data = this.get('_data');
             var perpage = this.get('perpage');
             var total = this.get('total');
 
-            return data.slice(page * perpage, Math.min(page * perpage + perpage, total));
+            return _data.slice(page * perpage, Math.min(page * perpage + perpage, total));
 
         },
 
