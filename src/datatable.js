@@ -307,6 +307,7 @@ var DataTable = Ractive.extend({
     selectRow: function(details) {
 
         var mode = this.get('selectionMode');
+        var event = details.original;
 
         if(mode == 'cell')
             return;
@@ -315,12 +316,21 @@ var DataTable = Ractive.extend({
 
         var row = details.context.index;
 
-        var index = _selection.indexOf(row);
+        if(event.shiftKey) {
 
-        if(index > -1)
-            _selection.splice(index, 1);
-        else
-            _selection.push(row);
+            var index = _selection.indexOf(row);
+
+            if(index > -1)
+                _selection.splice(index, 1);
+            else
+                _selection.push(row);
+
+        } else {
+
+            _selection = [row];
+
+        }
+
 
         this.set('_selection', _selection);
 
