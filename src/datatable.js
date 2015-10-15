@@ -99,11 +99,6 @@ var DataTable = Ractive.extend({
                 return '__default__';
 
             },
-            
-             test: function() {
-                 console.log(arguments);
-                 return true
-             }
 
         }
     },
