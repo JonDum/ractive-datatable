@@ -365,7 +365,7 @@ var DataTable = Ractive.extend({
 
         var row = details.context.index;
 
-        if(event.shiftKey) {
+        if(event.shiftKey || event.ctrlKey || event.metaKey) {
 
             var index = _selection.indexOf(row);
 
