@@ -213,8 +213,8 @@ var DataTable = Ractive.extend({
         },
 
         current: function() {
-            var page = parseInt(this.get('page'));
-            var perpage = parseInt(this.get('perpage'));
+            var page = this.get('page');
+            var perpage = this.get('perpage');
             var total = this.get('total');
             var ppp = (page - 1) * perpage;
             return (page == 1 ? 1 : ppp) + '-' + Math.min(ppp + perpage, total)
@@ -306,6 +306,18 @@ var DataTable = Ractive.extend({
         // reset page when perpage changes
         self.observe('perpage filter', function() {
             self.set('page', 1);
+        });
+
+        self.observe('perpage', function(value) {
+            if(typeof value !== 'number') {
+                self.set('perpage', parseInt(value, 10));
+            }
+        });
+
+        self.observe('page', function(value) {
+            if(typeof value !== 'number') {
+                self.set('perpage', parseInt(value, 10));
+            }
         });
 
     },
