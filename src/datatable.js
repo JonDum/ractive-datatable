@@ -2,6 +2,10 @@
 require('./styles.styl');
 
 var sortBy = require('./util/sortBy');
+var uniq = require('lodash/array/uniq');
+var isUndefined = require('lodash/lang/isUndefined');
+var isObject= require('lodash/lang/isObject');
+var isNumber = require('lodash/lang/isNumber');
 
 var DataTable = Ractive.extend({
 
@@ -161,18 +165,56 @@ var DataTable = Ractive.extend({
             var self = this;
 
             var data = self.get('_data'),
-                columns = self.get('columns');
+                config = self.get('columns');
 
-            if(columns)
-                return columns;
+            var _columns = [];
 
-            return data && data[0] ? Object.keys(self.get('_data')[0]) : [];
+            data.forEach( function(row) {
+                _columns = _columns.concat(Object.keys(row));
+            });
+
+            _columns = uniq(_columns);
+
+            var order = [];
+
+            if(isObject(config)) { 
+                _columns = _columns.filter( function(col) {
+
+                    var colConfig = config[col];
+
+                    if( isUndefined(colConfig) || colConfig === true) 
+                        return true;
+
+                    // if display is undefined we still want to show the col
+                    if( colConfig.display === false )
+                        return;
+
+                    if( !isUndefined(colConfig.order) && isNumber(colConfig.order) ) {
+                        order.splice(colConfig.order, 0, col);
+                        return;
+                    }
+
+                    if( colConfig === false )
+                        return;
+
+                });
+
+                var length = order.length;
+
+                // push to the beginning of _columns
+                if(order && length > 0) {
+                    while(length--)
+                        _columns.unshift(order[length]);
+                }
+            }
+
+            return _columns;
 
         },
 
         current: function() {
-            var page = this.get('page');
-            var perpage = this.get('perpage');
+            var page = parseInt(this.get('page'));
+            var perpage = parseInt(this.get('perpage'));
             var total = this.get('total');
             var ppp = (page - 1) * perpage;
             return (page == 1 ? 1 : ppp) + '-' + Math.min(ppp + perpage, total)
