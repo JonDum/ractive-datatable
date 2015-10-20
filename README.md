@@ -66,26 +66,31 @@ Will render every row in the "timestamp" column with the passed in partial (in t
 
 `filter`: A string to filter the rows on. Searches through all cells with a case-insensitive RegEx and displays only rows that match. Cells with matches are highlighted.
 
-`columns`: Array specifying which columns to display and order (any keys missing in this array will not be shown). If left `undefined`, the datatable will extract columns from the first item in the data array.
+`columns`: Object specifying which columns to display and order. Keys match to column name and by default, all columns will be shown. The key can also be an object specifying additional parameters for the column `edit`, `display`, `order`.
 
-`config`: Object to configure individual columns. Each key represents a column and must be an object with optional `edit` and `display` keys.
-
-`selectionMode`: Either `row` or `cell` (WIP). Allows for rows to be selected on click
-
-`selection`: An array of the currently selected objects from `data`.
-
+Example: 
 ```
-config: {
+columns: {
+    'name': {order: 0}, // `order` "bumps" the column, lowest value is left most. 
     'created': {edit: false},
     'id': {edit: false},
     'hiddenField': {display: false},
-    'someOtherColumn': {edit: false}  
+    'anotherHidden': false, //shorthand for {display: false}
+    'someOtherColumn': {order: 3},
 }
 ```
+
+`selectionMode`: Either `row` or `cell` (WIP). Allows for rows to be selected on click
+
+`selection`: An array of the currently selected objects from `data`
 
 `page`: the current page
 
 `lastPage` (readonly): the last page or total number of pages
+
+`sortOn`: Name of column to sort
+
+`sortMode`: Either 'asc' or 'desc'
 
 ##### Methods
 
