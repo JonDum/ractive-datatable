@@ -27,52 +27,56 @@ var DataTable = Ractive.extend({
 
             selectionMode: '', // "row" or "cell"
 
+
+            /**
+             * @name dynamicColumns
+             * @type Boolean
+             * @default true
+             * If `true`, searches the entire `data` array looking for columns. If you have a large number of rows this should be turned off.
+             * If `false`, columns must be explicitly provided through the `columns` property.
+             */
+            dynamicColumns: true,
+
             /**
              *
              * @name columns
-             * @type Array
-             * @default undefined
+             * @type Object
+             * @default null
              *
-             * Determines the ordering of the columns. If falsey, columns are extracted by
-             * the first object in the data array.
+             * Determines the ordering of the columns and configuration for specific columns.
              *
-             * Omitting a column here will also have the effect of it not being displayed (same as
-             * setting config[columnName].display = false);
+             * Each key on this object refers to column names. Configurable properties are `edit`,
+             * `display` & `order`. Keys and column names are case-sensitive.
+             *
+             * Example: 
+             *
+             *  ```
+             *  columns: {
+             *      'name': {order: 0}, // `order` "bumps" the column, lowest value is left most. 
+             *      'created': {edit: false},
+             *      'id': {edit: false},
+             *      'hiddenField': {display: false},
+             *      'anotherHidden': false, //shorthand for { display: false }
+             *      'someOtherColumn': {order: 3},
+             *  }
+             *  ```
+             *
+             *  If `dynamicColumns` is `false`, only columns configured here will display.
              *
              */
             columns: null,
 
-            /**
-             *
-             * @name config
-             * @type Object
-             * @default undefined
-             *
-             * Used to change functionaliy of specific columns
-             *
-             * Falsey => Display all fields (default)
-             *
-             * Object => Configure which fields to display/hide/make editable
-             *
-             * i.e. {
-             *       name: {edit: true, display: true},  <-- redundant since this is the default
-             *       created: {edit: false}, <--- still displayed, but can't edit
-             *       id: {display: false}, <--- can't edit what isn't there
-             *      }
-             */
-            config: null,
-
             can: function(action, field) {
 
-                var config = this.get('config');
+                var config = this.get('columns');
 
                 if(!config)
                     return true;
 
-                if(typeof config[field] === 'undefined')
+                if(isUndefined(config[field]))
                     return true
 
-                if(config[field] && typeof config[field][action] === 'undefined')
+                if(config[field] && isUndefined(config[field][action]))
                     return true;
 
                 return config[field][action];
@@ -164,25 +168,36 @@ var DataTable = Ractive.extend({
 
             var self = this;
 
-            var data = self.get('_data'),
-                config = self.get('columns');
+            var data = self.get('_data');
+            var config = self.get('columns');
 
             var _columns = [];
 
-            data.forEach( function(row) {
-                _columns = _columns.concat(Object.keys(row));
-            });
+            var dynamicColumns = self.get('dynamicColumns');
 
-            _columns = uniq(_columns);
+            if(dynamicColumns) {
 
-            var order = [];
+                data.forEach( function(row) {
+                    _columns = _columns.concat(Object.keys(row));
+                });
+
+                _columns = uniq(_columns);
+
+            } else {
+
+                _columns = Object.keys(config);
+            }
+
 
             if(isObject(config)) { 
+
+                var order = [];
+
                 _columns = _columns.filter( function(col) {
 
                     var colConfig = config[col];
 
-                    if( isUndefined(colConfig) || colConfig === true) 
+                    if( isUndefined(colConfig) || colConfig === true )
                         return true;
 
                     // if display is undefined we still want to show the col
@@ -304,7 +319,7 @@ var DataTable = Ractive.extend({
         });
 
         // reset page when perpage changes
-        self.observe('perpage filter', function() {
+        self.observe('perpage filter data', function() {
             self.set('page', 1);
         });
 

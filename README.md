@@ -66,19 +66,30 @@ Will render every row in the "timestamp" column with the passed in partial (in t
 
 `filter`: A string to filter the rows on. Searches through all cells with a case-insensitive RegEx and displays only rows that match. Cells with matches are highlighted.
 
-`columns`: Object specifying which columns to display and order. Keys match to column name and by default, all columns will be shown. The key can also be an object specifying additional parameters for the column `edit`, `display`, `order`.
+`dynamicColumns`: If `true` (default), searches the entire `data` array looking for columns. 
+                  If `false`, columns must be explicitly provided through the `columns` property.
+                  If you have a large number of rows this should be turned off for performance, but you will have to explicitly provide columns via the `columns` object.
 
-Example: 
-```
-columns: {
-    'name': {order: 0}, // `order` "bumps" the column, lowest value is left most. 
-    'created': {edit: false},
-    'id': {edit: false},
-    'hiddenField': {display: false},
-    'anotherHidden': false, //shorthand for {display: false}
-    'someOtherColumn': {order: 3},
-}
-```
+`columns`: Determines the ordering of the columns and configuration for specific columns.
+           
+           Each key on this object refers to column names. Configurable properties are `edit`,
+           `display` & `order`. Keys and column names are case-sensitive.
+           
+           Example: 
+           
+            ```
+            columns: {
+                'name': {order: 0}, // `order` "bumps" the column, lowest value is left most. 
+                'created': {edit: false},
+                'id': {edit: false},
+                'hiddenField': {display: false},
+                'anotherHidden': false, //shorthand for { display: false }
+                'someOtherColumn': {order: 3},
+            }
+            ```
+           
+            If `dynamicColumns` is `false`, only columns configured here will display.
+
 
 `selectionMode`: Either `row` or `cell` (WIP). Allows for rows to be selected on click
 
@@ -98,6 +109,8 @@ columns: {
 `previousPage`: Go to the previous page
 
 `nextPage`: Go to the next page
+
+`gotoPage`: Go to the specified page
 
 
 ##### Events
