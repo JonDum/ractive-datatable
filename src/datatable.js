@@ -163,8 +163,7 @@ var DataTable = Ractive.extend({
             return data ? this.get('_data').length : 0;
         },
 
-        //internal -- `columns` without underscore is the public prop
-        _columns: function() {
+        cols: function() {
 
             var self = this;
 

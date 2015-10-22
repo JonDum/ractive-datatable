@@ -4,21 +4,21 @@
     <div class='scroll'>
         <table>
             <thead class='{{sortable ? "sortable" : ""}}'>
-                {{#_columns}}
+                {{#cols}}
                     <th class='{{#if sortOn === this}}sort {{sortMode}}{{/if}}' on-click='setSort(this)'>{{.}}</th>
                 {{/}}
             </thead>
             <tbody>
                 {{#rows:i}}
                 <tr {{#if selectionMode == 'row' && _selection.indexOf(index) !== -1 }}class='selected'{{/if}} on-click='selectRow(event)' index='{{index}}'>
-                    {{#_columns:c}}
+                    {{#cols:c}}
                         {{#if editable && can('edit', this) && editing == i+this}}
                         <td class='editing'>
                             <input value="{{rows[i].item[this]}}" on-blur-keyup='fieldedited(event)' twoway='false'>
                         </td>
                         {{else}}
                         <td on-dblclick='set("editing", i + this)' {{#if selectionMode == 'cell' && selection[index] && selection[index][c] }}class='selected'{{/if}}>
-                            {{> cellFor(_columns[c]) rows[i].item[this] }}
+                            {{> cellFor(cols[c]) rows[i].item[this] }}
                         </td>
                         {{/if}}
                     {{/}}
