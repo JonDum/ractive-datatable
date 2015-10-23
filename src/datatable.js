@@ -23,6 +23,8 @@ var DataTable = Ractive.extend({
 
             sortable: true,
 
+            sortOn: '',
+
             _selection: [],
 
             selectionMode: '', // "row" or "cell"
@@ -113,31 +115,19 @@ var DataTable = Ractive.extend({
 
     computed: {
 
-        rows: function() {
-
-            var page = this.get('page') - 1;
-            var _data = this.get('_data');
-            var perpage = this.get('perpage');
-            var total = this.get('total');
-
-            // the original data, unfiltered
-            var data = this.get('data');
-
-            return _data
-                   .slice(page * perpage, Math.min(page * perpage + perpage, total))
-                   .map(function(v, i) {
-                       return {item: v, index: data.indexOf(v)};
-                   });
-        },
 
         // `data` set publicly
         // `_data` is internal, includes any filters, sorted
         _data: function() {
 
             var self = this;
+
             var data = self.get('data');
 
             var filter = self.get('filter');
+
+            var sortOn = self.get('sortOn');
+            var sortMode = self.get('sortMode');
 
             if(filter && filter.length > 0) {
                 var re = new RegExp(filter, 'i');
@@ -148,9 +138,6 @@ var DataTable = Ractive.extend({
                 });
             }
 
-            var sortOn = self.get('sortOn');
-            var sortMode = self.get('sortMode');
-
             if(sortOn) {
                 data = data.slice().sort(sortBy(sortOn, (sortMode == 'desc')));
             }
@@ -158,9 +145,23 @@ var DataTable = Ractive.extend({
             return data;
         },
 
-        total: function() {
-            var data = this.get('_data');
-            return data ? this.get('_data').length : 0;
+        rows: function() {
+
+            var self = this;
+
+            var page = self.get('page') - 1;
+            var _data = self.get('_data');
+            var perpage = self.get('perpage');
+            var total = self.get('total');
+
+            // the original data, unfiltered
+            var data = self.get('data');
+
+            return _data
+                   .slice(page * perpage, Math.min(page * perpage + perpage, total))
+                   .map(function(v, i) {
+                       return {item: v, index: data.indexOf(v)};
+                   });
         },
 
         cols: function() {
@@ -224,6 +225,11 @@ var DataTable = Ractive.extend({
 
             return _columns;
 
+        },
+
+        total: function() {
+            var data = this.get('_data');
+            return data ? this.get('_data').length : 0;
         },
 
         current: function() {
