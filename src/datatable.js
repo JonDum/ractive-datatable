@@ -142,7 +142,10 @@ var DataTable = Ractive.extend({
                 data = data.slice().sort(sortBy(sortOn, (sortMode == 'desc')));
             }
 
-            return data;
+            return data
+                   .map(function(v, i) {
+                       return {item: v, index: i};
+                   });
         },
 
         rows: function() {
@@ -157,11 +160,7 @@ var DataTable = Ractive.extend({
             // the original data, unfiltered
             var data = self.get('data');
 
-            return _data
-                   .slice(page * perpage, Math.min(page * perpage + perpage, total))
-                   .map(function(v, i) {
-                       return {item: v, index: data.indexOf(v)};
-                   });
+            return _data.slice(page * perpage, Math.min(page * perpage + perpage, total));
         },
 
         cols: function() {
@@ -178,7 +177,7 @@ var DataTable = Ractive.extend({
             if(dynamicColumns) {
 
                 data.forEach( function(row) {
-                    _columns = _columns.concat(Object.keys(row));
+                    _columns = _columns.concat(Object.keys(row.item));
                 });
 
                 _columns = uniq(_columns);
