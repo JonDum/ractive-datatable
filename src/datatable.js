@@ -167,20 +167,20 @@ var DataTable = Ractive.extend({
 
             var self = this;
 
-            var data = self.get('_data');
+            var data = self.get('data'); //use data instead of _data
             var config = self.get('columns');
+            var dynamicColumns = self.get('dynamicColumns');
 
             var _columns = [];
-
-            var dynamicColumns = self.get('dynamicColumns');
 
             if(dynamicColumns) {
 
                 data.forEach( function(row) {
-                    _columns = _columns.concat(Object.keys(row.item));
+                    Object.keys(row).forEach(function(key) {
+                        if(_columns.indexOf(key) === -1)
+                            _columns.push(key);
+                    });
                 });
-
-                _columns = uniq(_columns);
 
             } else {
 
