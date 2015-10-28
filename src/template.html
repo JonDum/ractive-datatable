@@ -9,16 +9,16 @@
                 {{/}}
             </thead>
             <tbody>
-                {{#rows:i}}
+                {{#rows:r}}
                 <tr {{#if selectionMode == 'row' && _selection.indexOf(index) !== -1 }}class='selected'{{/if}} on-click='selectRow(event)' index='{{index}}'>
                     {{#cols:c}}
-                        {{#if editable && can('edit', this) && editing == i+'-'+c}}
+                        {{#if editable && can('edit', this) && editing == r+'-'+c}}
                         <td class='editing'>
-                            <input value="{{rows[i].item[this]}}" on-blur-keyup='fieldedited(event)' twoway='false'>
+                            <input value="{{rows[r].item[this]}}" on-blur-keyup='fieldedited(event)' twoway='false'>
                         </td>
                         {{else}}
-                        <td on-dblclick='set("editing", i + "-" + c)' {{#if selectionMode == 'cell' && selection[index] && selection[index][c] }}class='selected'{{/if}}>
-                            {{> cellFor(cols[c]) rows[i].item[this] }}
+                        <td class='{{this}}' on-dblclick='set("editing", r + "-" + c)' {{#if selectionMode == 'cell' && selection[index] && selection[index][c] }}class='selected'{{/if}}>
+                            {{> cellFor(cols[c]) rows[r].item[this] }}
                         </td>
                         {{/if}}
                     {{/}}
