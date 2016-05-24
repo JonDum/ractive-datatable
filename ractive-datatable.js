@@ -864,10 +864,20 @@ return /******/ (function(modules) { // webpackBootstrap
 	   * @return {Number}
 	   */
 	  return function(a, b) {
-	    if (a[key] < b[key]) {
+	    a = a[key];
+	    b = b[key];
+	    // convert to lowercase for case insensitive sorting if items are strings only
+	    if ( typeof a === 'string' ) {
+	      a = a.toLowerCase();
+	    }
+	    if ( typeof b === 'string' ) {
+	      b = b.toLowerCase();
+	    }
+
+	    if (a < b) {
 	      return moveSmaller;
 	    }
-	    if (a[key] > b[key]) {
+	    if (a > b) {
 	      return moveLarger;
 	    }
 	    return 0;
