@@ -5,7 +5,7 @@ module.exports = {
     entry: ['src/datatable'],
     output: {
         path: __dirname + '/',
-        filename: 'datatable.js',
+        filename: 'ractive-datatable.js',
         library: 'RactiveDatatable',
         libraryTarget: 'umd'
     },
