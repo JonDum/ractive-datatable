@@ -25,6 +25,7 @@
   "homepage": "https://github.com/jondum/ractive-datatable",
   "devDependencies": {
     "css-loader": "^0.23.1",
+    "nib": "^1.1.0",
     "ractive": "^0.7.3",
     "ractive-loader": "^0.5.6",
     "style-loader": "^0.13.1",
