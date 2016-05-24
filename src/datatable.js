@@ -2,10 +2,10 @@
 require('./styles.styl');
 
 var sortBy = require('./util/sortBy');
-var uniq = require('lodash/array/uniq');
-var isUndefined = require('lodash/lang/isUndefined');
-var isObject= require('lodash/lang/isObject');
-var isNumber = require('lodash/lang/isNumber');
+var uniq = require('lodash/uniq');
+var isUndefined = require('lodash/isUndefined');
+var isObject= require('lodash/isObject');
+var isNumber = require('lodash/isNumber');
 
 var DataTable = Ractive.extend({
 
