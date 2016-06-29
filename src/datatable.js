@@ -13,6 +13,7 @@ var DataTable = Ractive.extend({
 
     data: function() {
         return {
+
             filter: '',
 
             perpage: 30,
@@ -376,13 +377,23 @@ var DataTable = Ractive.extend({
 
         var mode = this.get('selectionMode');
         var event = details.original;
+        var row;
 
         if(mode == 'cell')
             return;
 
         var _selection = this.get('_selection');
 
-        var row = details.context.index;
+        if(details.context)
+            row = details.context.index;
+        else
+            row = details.index.r;
+
+        // if for some reason the details.context is undef
+        // and we can't the index through other means then prevent
+        // an error and do nothing
+        if(!row)
+            return;
 
         if(event.shiftKey || event.ctrlKey || event.metaKey) {
 
