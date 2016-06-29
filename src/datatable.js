@@ -9,7 +9,7 @@ var isNumber = require('lodash/isNumber');
 
 var DataTable = Ractive.extend({
 
-    template: require('./template.html'),
+    template: require('!ractive!./template.html'),
 
     data: function() {
         return {
