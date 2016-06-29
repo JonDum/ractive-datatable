@@ -46,6 +46,7 @@
         <demo></demo>
 
         <script src='../ractive-datatable.js'></script>
+        <script src='ractive-tooltip.js'></script>
 
         <script id='template' type='text/ractive'>
 
@@ -78,13 +79,23 @@
 
                 <!-- normally you wouldn't need to set all this on the html -->
                 <!-- most of it is for demo purposes-->
-                <datatable data='{{data}}' filter='{{filter}}' perpage='{{perpage}}' page='{{page}}' selectionMode='{{selectionMode}}'></datatable>
+                <datatable data='{{data}}' filter='{{filter}}' perpage='{{perpage}}' page='{{page}}' selectionMode='{{selectionMode}}'>
+
+                    {{#partial ID}}
+                        <span as-tooltip='this'>{{this.substr(0, 10)}}...</span>
+                    {{/partial}}
+
+                </datatable>
 
             </div>
 
         </script>
 
         <script>
+
+            Ractive.defaults.components = {
+                tooltip: RactiveTooltip,
+            };
 
             var main = new Ractive({
 
@@ -98,7 +109,7 @@
                 },
 
                 components: {
-                    datatable:  RactiveDatatable // don't do globals, kids
+                    datatable:  RactiveDatatable, // don't do globals, kids
                     //datatable: require('ractive-datatable') // use a buildsystem
                 },
 
@@ -126,8 +137,10 @@
                 },
 
                 oncomplete: function() {
-                    //debug stuff. Don't do this in production, kids
+
                     window.d = this.findComponent('datatable');
+
+                    this.generate(200);
                 }
 
             })
