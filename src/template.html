@@ -5,7 +5,7 @@
         <table>
             <thead class='{{sortable ? "sortable" : ""}}'>
                 {{#cols}}
-                    <th class='{{#if sortOn === this}}sort {{sortMode}}{{/if}}' on-click='setSort(this)'>{{.}}</th>
+                    <th {{#if sortOn === this}}class='sort {{sortMode}}'{{/if}} on-click='setSort(this)'>{{.}}</th>
                 {{/}}
             </thead>
             <tbody>
