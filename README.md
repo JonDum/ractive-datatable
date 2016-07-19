@@ -1,17 +1,17 @@
 #ractive-datatable
 
 
-### Demo
+## Demo
 
 [Live Demo](http://jondum.github.com/ractive-datatable/demo/)
 
-### Install
+## Install
 
 ```
 npm install ractive-datatable --save
 ```
 
-### Features
+## Features
 
 * Minimal (3.45kb gzipped **including** styles, 1.71kb without)
 * Well designed default styling
@@ -22,7 +22,7 @@ npm install ractive-datatable --save
 * Per-cell partials (new!)
 * Selection (new!) (wip!)
 
-### Usage
+## Usage
 
 Add the datatable to your Ractive instance:
 
@@ -56,21 +56,26 @@ To use a specific partial for a cell, create an inline partial expression inside
 
 Will render every row in the "timestamp" column with the passed in partial (in this case formatting the timestamp using moment.js).
 
-### API
+## API
 
-##### Properties
+### Properties
 
-`data`: Array of Objects where each key is a column
+##### `data` 
+Array of Objects where each key is a column
 
-`editable`: globally allow/disallow editing
+##### `editable`
+globally allow/disallow editing
 
-`filter`: A string to filter the rows on. Searches through all cells with a case-insensitive RegEx and displays only rows that match. Cells with matches are highlighted.
+##### `filter`
+A string to filter the rows on. Searches through all cells with a case-insensitive RegEx and displays only rows that match. Cells with matches are highlighted.
 
-`dynamicColumns`: If `true` (default), searches the entire `data` array looking for columns. 
+##### `dynamicColumns`
+If `true` (default), searches the entire `data` array looking for columns. 
 If `false`, columns must be explicitly provided through the `columns` property.
 If you have a large number of rows this should be turned off for performance, but you will have to explicitly provide columns via the `columns` object.
 
-`columns`: Determines the ordering of the columns and configuration for specific columns.
+##### `columns`
+Determines the ordering of the columns and configuration for specific columns.
            
 Each key on this object refers to column names. Configurable properties are `edit`,
  `display` & `order`. Keys and column names are case-sensitive.
@@ -90,29 +95,38 @@ columns: {
 
 If `dynamicColumns` is `false`, only columns configured here will display.
 
-`selectionMode`: Either `row` or `cell` (WIP). Allows for rows to be selected on click
+##### `selectionMode`
+Either `row` or `cell` (WIP). Allows for rows to be selected on click
 
-`selection`: An array of the currently selected objects from `data`
+##### `selection`
+An array of the currently selected objects from `data`
 
-`page`: the current page
+##### `page`
+The current page
 
-`lastPage` (readonly): the last page or total number of pages
+##### `lastPage` (readonly)
+The last page or total number of pages
 
-`sortOn`: Name of column to sort
+##### `sortOn`
+Name of column to sort
 
-`sortMode`: Either 'asc' or 'desc'
+##### `sortMode`
+Either 'asc' or 'desc'
 
-##### Methods
-
-
-`previousPage`: Go to the previous page
-
-`nextPage`: Go to the next page
-
-`gotoPage`: Go to the specified page
+#### Methods
 
 
-##### Events
+##### `previousPage()`
+Go to the previous page
+
+##### `nextPage()`
+Go to the next page
+
+##### `gotoPage(page)`
+Go to the specified page
+
+
+### Events
 
 `edit`: Dispatched when an edit is made. Sends the entire row and the field that is edited (useful for extracting specific information from the row that changed).
 
