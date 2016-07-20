@@ -78,7 +78,7 @@ If you have a large number of rows this should be turned off for performance, bu
 Determines the ordering of the columns and configuration for specific columns.
            
 Each key on this object refers to column names. Configurable properties are `edit`,
- `display` & `order`. Keys and column names are case-sensitive.
+ `display`, `header` & `order`. Key/column names are case-sensitive.
 
 Example: 
 
@@ -86,6 +86,7 @@ Example:
 columns: {
     'name': {order: 0}, // `order` "bumps" the column, lowest value is left most. 
     'created': {edit: false},
+    'someAnnoyinglyNamedThingFromThatCoworkerThatDrivesYouNuts': {header: 'Nicer Name'},
     'id': {edit: false},
     'hiddenField': {display: false},
     'anotherHidden': false, //shorthand for { display: false }
