@@ -212,6 +212,7 @@ var DataTable = Ractive.extend({
                     if( colConfig === false )
                         return;
 
+                    return true;
                 });
 
                 var length = order.length;
