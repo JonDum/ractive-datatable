@@ -11,15 +11,18 @@ module.exports = {
     },
     resolve: {
         root: process.cwd(),
-        modulesDirectories: ['node_modules', 'bower_components', 'css', 'js', 'templates'],
+        modulesDirectories: ['node_modules'],
         extensions: ['', '.js', '.styl', '.html'],
     },
     module: {
         loaders: [
-            {test: /\.styl$/, loader:'style-loader!css-loader!stylus-loader'},
-            {test: /\.css$/, loader: 'style-loader!css-loader'},
+            {test: /\.styl$/, loader:'style!css!stylus'},
+            {test: /\.css$/, loader: 'style!css'},
             {test: /\.html/, loader: 'ractive'}
         ],
+    },
+    stylus: {
+        use: [(require('nib')())],
     },
 }
 
