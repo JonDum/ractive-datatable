@@ -90,6 +90,8 @@ var DataTable = Ractive.extend({
                 var self = this;
                 var filter = self.get('filter');
 
+                // columns without a corresponding key on the row get passed the whole row
+                // avoids putting in [object Object] casts
                 if(typeof text === 'object')
                     return '';
 
