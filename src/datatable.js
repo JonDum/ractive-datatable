@@ -393,7 +393,7 @@ var DataTable = Ractive.extend({
         // if for some reason the details.context is undef
         // and we can't the index through other means then prevent
         // an error and do nothing
-        if(!row)
+        if(!isNumber(row))
             return;
 
         if(event.shiftKey || event.ctrlKey || event.metaKey) {
