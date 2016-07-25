@@ -90,6 +90,9 @@ var DataTable = Ractive.extend({
                 var self = this;
                 var filter = self.get('filter');
 
+                if(typeof text === 'object')
+                    return '';
+
                 if(!filter || !text)
                     return text;
 
