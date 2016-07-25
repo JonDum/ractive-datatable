@@ -153,6 +153,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	                var self = this;
 	                var filter = self.get('filter');
 
+	                if(typeof text === 'object')
+	                    return '';
+
 	                if(!filter || !text)
 	                    return text;
 
