@@ -153,6 +153,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	                var self = this;
 	                var filter = self.get('filter');
 
+	                // columns without a corresponding key on the row get passed the whole row
+	                // avoids putting in [object Object] casts
 	                if(typeof text === 'object')
 	                    return '';
 
@@ -462,7 +464,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	        if(!isNumber(row))
 	            return;
 
-	        if(event.shiftKey || event.ctrlKey || event.metaKey) {
+	        if(event.shiftKey || event.ctrlKey || event.metaKey || 
+	            (_selection.length === 1 && _selection[0] === row)) {
 
 	            var index = _selection.indexOf(row);
 
