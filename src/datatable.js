@@ -401,7 +401,8 @@ var DataTable = Ractive.extend({
         if(!isNumber(row))
             return;
 
-        if(event.shiftKey || event.ctrlKey || event.metaKey) {
+        if(event.shiftKey || event.ctrlKey || event.metaKey || 
+            (_selection.length === 1 && _selection[0] === row)) {
 
             var index = _selection.indexOf(row);
 
