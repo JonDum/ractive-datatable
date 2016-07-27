@@ -1,6 +1,6 @@
 {
   "name": "ractive-datatable",
-  "version": "1.5.6",
+  "version": "1.5.7",
   "description": "Interactive datatable for ractivejs",
   "main": "src/datatable.js",
   "scripts": {
