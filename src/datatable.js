@@ -298,16 +298,6 @@ var DataTable = Ractive.extend({
             return page == lastPage;
         },
 
-        selection: function() {
-
-            var _selection = this.get('_selection');
-            var data = this.get('data');
-
-            return _selection.map(function(v) {
-                return data[v];
-            });
-
-        }
 
     },
 
@@ -344,6 +334,18 @@ var DataTable = Ractive.extend({
             if(typeof value !== 'number') {
                 self.set('perpage', parseInt(value, 10));
             }
+        });
+
+        self.observe('_selection', function(_selection) {
+
+            var data = self.get('data');
+            if(!_selection)
+                return;
+
+            self.set('selection', _selection.map(function(v) {
+                return data[v];
+            }));
+            
         });
 
     },
