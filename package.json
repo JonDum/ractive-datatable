@@ -39,7 +39,7 @@
     "css-loader": "^0.23.1",
     "lodash": "^4.13.1",
     "nib": "^1.1.0",
-    "ractive": "^0.8.3",
+    "ractive": "^0.8.5",
     "style-loader": "^0.13.1",
     "stylus-loader": "^2.1.1"
   }
