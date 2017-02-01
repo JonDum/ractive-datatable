@@ -24,23 +24,23 @@
   },
   "homepage": "https://github.com/jondum/ractive-datatable",
   "devDependencies": {
-    "css-loader": "^0.23.1",
+    "css-loader": "^0.26.1",
     "grunt": "^1.0.1",
-    "grunt-webpack": "^1.0.11",
+    "grunt-webpack": "^2.0.1",
     "jit-grunt": "^0.10.0",
-    "nib": "^1.1.0",
-    "ractive": "^0.7.3",
+    "nib": "^1.1.2",
+    "ractive": "^0.8.10",
     "ractive-loader": "^0.5.6",
     "style-loader": "^0.13.1",
-    "stylus-loader": "^2.1.1",
-    "webpack": "^1.13.1"
+    "stylus-loader": "^2.4.0",
+    "webpack": "^2.2.1"
   },
   "dependencies": {
-    "css-loader": "^0.23.1",
-    "lodash": "^4.13.1",
-    "nib": "^1.1.0",
-    "ractive": "^0.8.5",
+    "css-loader": "^0.26.1",
+    "lodash": "^4.17.4",
+    "nib": "^1.1.2",
+    "ractive": "^0.8.10",
     "style-loader": "^0.13.1",
-    "stylus-loader": "^2.1.1"
+    "stylus-loader": "^2.4.0"
   }
 }
