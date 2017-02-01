@@ -17,13 +17,10 @@
                             <input value="{{rows[r].item[this]}}" on-blur-keyup='fieldedited(event)' twoway='false'>
                         </td>
                         {{else}}
-                        <td class='{{this}}' on-dblclick='set("editing", r + "-" + c)' {{#if selectionMode == 'cell' && selection[index] && selection[index][c] }}class='selected'{{/if}}>
-
-                            {{! ractive 0.7.3 passes an index outside of the rows here....}}
-                            {{! so we wrap in an if to avoid exceptions }}
+                        <td class='{{this}}' on-dblclick='set("editing", r + "-" + c)' {{#if selectionMode == 'cell' && selection[index] && selection[index][c] }}class='selected'{{/if}} on-click='selectCell(event)'>
 
                             {{#if rows[r] && rows[r].item}}
-                                {{> cellFor(cols[c]) rows[r].item[this] || rows[r].item }}
+                                {{> cellFor(cols[c]) (rows[r].item[this] || rows[r].item) }}
                             {{/if}}
 
                         </td>

@@ -443,8 +443,16 @@ var DataTable = Ractive.extend({
     },
     
     selectCell: function(details) {
+
+        var mode = this.get('selectionMode');
+
+        if(mode == 'row')
+            return;
+
         var event = details.original;
         event.stopImmediatePropagation();
+
+        clearSelection();
 
         //TODO
     },
