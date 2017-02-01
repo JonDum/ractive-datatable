@@ -439,6 +439,7 @@ var DataTable = Ractive.extend({
         this.set('_lastSelected', _lastSelected);
         this.set('_selection', _selection);
 
+        clearSelection();
     },
     
     selectCell: function(details) {
@@ -487,5 +488,17 @@ var DataTable = Ractive.extend({
 
 
 });
+
+function clearSelection() {
+    if (window.getSelection) {
+        if (window.getSelection().empty) {  // Chrome
+            window.getSelection().empty();
+        } else if (window.getSelection().removeAllRanges) {  // Firefox
+            window.getSelection().removeAllRanges();
+        }
+    } else if (document.selection) {  // IE?
+        document.selection.empty();
+    }
+}
 
 module.exports = DataTable;
