@@ -69,9 +69,13 @@ var DataTable = Ractive.extend({
              */
             columns: undefined,
 
-            can: function(action, field) {
+            can: function(action, field, row) {
 
                 var config = this.get('columns');
+
+                // don't edit fields that don't exit on the row
+                if(!row.hasOwnProperty(field) && action == 'edit')
+                    return;
 
                 if(!config)
                     return true;
@@ -111,7 +115,7 @@ var DataTable = Ractive.extend({
 
                 if(this.partials[column])
                     return column;
-                
+
                 return '__default__';
 
             },

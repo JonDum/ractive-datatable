@@ -12,7 +12,7 @@
                 {{#rows:r}}
                 <tr {{#if selectionMode == 'row' && _selection.indexOf(index) !== -1 }}class='selected'{{/if}} on-click='selectRow(event)' index='{{index}}'>
                     {{#cols:c}}
-                        {{#if editable && can('edit', this) && editing == r+'-'+c}}
+                        {{#if editable && can('edit', this, rows[r].item) && editing == r+'-'+c}}
                         <td class='editing'>
                             <input value="{{rows[r].item[this]}}" on-blur-keyup='fieldedited(event)' twoway='false'>
                         </td>
