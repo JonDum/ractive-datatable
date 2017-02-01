@@ -354,28 +354,28 @@ var DataTable = Ractive.extend({
 
     },
 
-    fieldedited: function() {
+    fieldedited: function(context) {
 
         var self = this;
-        var event = this.event,
-            e = event.original;
+        var event = context.original;
 
-        if(e.type == 'keyup' && e.keyCode !== 13)
+        if(event.type == 'keyup' && event.keyCode !== 13)
             return false;
 
-        var index = event.index.i + (self.get('page') - 1) * self.get('perpage');
-        var row = self.get('_data.' + index);
-        var field = event.context;
+        var field = context.get();
+        var index = context.get('index') + (self.get('page') - 1) * self.get('perpage');
+        var row = self.get('_data.' + index + '.item');
 
         // don't duplicate
-        if(event.node.value !== row[field]) {
+        if(context.node.value !== row[field]) {
 
             // get the real position of index
             index = self.get('data').indexOf(row);
 
             var keypath = 'data.' + index + '.' + field;
+            var value = context.node.value;
 
-            self.set(keypath, event.node.value);
+            self.set(keypath, value);
 
             self.fire('edit', row, field);
 
