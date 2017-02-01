@@ -195,10 +195,10 @@ var DataTable = Ractive.extend({
             } else {
 
                 _columns = Object.keys(config);
+
             }
 
-
-            if(isObject(config)) { 
+            if(isObject(config)) {
 
                 var order = [];
 
@@ -377,7 +377,7 @@ var DataTable = Ractive.extend({
 
             self.set(keypath, value);
 
-            self.fire('edit', row, field);
+            self.fire('edit', row, field, value, index);
 
         }
 
