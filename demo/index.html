@@ -93,10 +93,6 @@
 
         <script>
 
-            Ractive.defaults.components = {
-                tooltip: RactiveTooltip,
-            };
-
             var main = new Ractive({
 
                 el: 'demo',
@@ -111,6 +107,10 @@
                 components: {
                     datatable:  RactiveDatatable, // don't do globals, kids
                     //datatable: require('ractive-datatable') // use a buildsystem
+                },
+
+                decorators: {
+                    tooltip: RactiveTooltip,
                 },
 
                 generate: function(num) {
