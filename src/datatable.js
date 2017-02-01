@@ -395,11 +395,13 @@ var DataTable = Ractive.extend({
             return;
 
         var _selection = this.get('_selection');
+        var _lastSelected = this.get('_lastSelected');
 
         if(details.context)
             row = details.context.index;
         else
             row = details.index.r;
+
 
         // if for some reason the details.context is undef
         // and we can't the index through other means then prevent
@@ -407,7 +409,16 @@ var DataTable = Ractive.extend({
         if(!isNumber(row))
             return;
 
-        if(event.shiftKey || event.ctrlKey || event.metaKey || 
+        if(event.shiftKey && _lastSelected) {
+
+            var min = Math.min(_lastSelected, row);
+            var max = Math.max(_lastSelected, row);
+
+            for(var c = max; c <= max && c >= min; c--) {
+                _selection.push(c);
+            }
+
+        } else if(event.ctrlKey || event.metaKey || event.altKey ||
             (_selection.length === 1 && _selection[0] === row)) {
 
             var index = _selection.indexOf(row);
@@ -423,7 +434,9 @@ var DataTable = Ractive.extend({
 
         }
 
+        _lastSelected = row;
 
+        this.set('_lastSelected', _lastSelected);
         this.set('_selection', _selection);
 
     },
