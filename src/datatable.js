@@ -67,7 +67,7 @@ var DataTable = Ractive.extend({
              *  If `dynamicColumns` is `false`, only columns configured here will display.
              *
              */
-            columns: null,
+            columns: undefined,
 
             can: function(action, field) {
 
