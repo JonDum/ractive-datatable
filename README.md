@@ -1,4 +1,4 @@
-#ractive-datatable
+# ractive-datatable
 
 
 ## Demo
